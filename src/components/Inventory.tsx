@@ -5,13 +5,80 @@ import { skillsData } from "@/data/skills";
 import { Skill } from "@/types";
 import { PixelIcon } from "@/components/ui/PixelIcon";
 import { MinecraftTooltipContent } from "@/components/Tooltip";
+import { InteractiveSteve } from "@/components/InteractiveSteve";
 import { useSoundEffects } from "@/hooks/useSoundEffects";
+
+interface EquipmentItem {
+  id: string;
+  name: string;
+  slot: "helmet" | "chestplate" | "leggings" | "boots" | "shield";
+  icon: "helmet-silhouette" | "chestplate-silhouette" | "leggings-silhouette" | "boots-silhouette" | "shield-silhouette";
+  equippedName: string;
+  enchantment: string;
+  description: string;
+  level: number;
+}
+
+const armorItems: EquipmentItem[] = [
+  {
+    id: "helmet",
+    name: "Helmet Slot",
+    slot: "helmet",
+    icon: "helmet-silhouette",
+    equippedName: "B.Tech Engineering Cap",
+    enchantment: "Protection IV, Respiration III",
+    description: "Undergraduate coursework in Software Engineering at Mumbai University.",
+    level: 95,
+  },
+  {
+    id: "chestplate",
+    name: "Chestplate Slot",
+    slot: "chestplate",
+    icon: "chestplate-silhouette",
+    equippedName: "Fullstack Tunic",
+    enchantment: "Efficiency V, Unbreaking III",
+    description: "Battle-hardened architecture with React 19, Next.js App Router, and TypeScript.",
+    level: 92,
+  },
+  {
+    id: "leggings",
+    name: "Leggings Slot",
+    slot: "leggings",
+    icon: "leggings-silhouette",
+    equippedName: "Algorithm Greaves",
+    enchantment: "Swift Sneak III, Mending",
+    description: "Data structures, graph traversals, dynamic programming, and complexity analysis.",
+    level: 88,
+  },
+  {
+    id: "boots",
+    name: "Boots Slot",
+    slot: "boots",
+    icon: "boots-silhouette",
+    equippedName: "Speedcoder Boots",
+    enchantment: "Feather Falling IV, Soul Speed III",
+    description: "Fast 24-hour sprints in collegiate hackathons and rapid production deployments.",
+    level: 90,
+  },
+];
+
+const offhandItem: EquipmentItem = {
+  id: "shield",
+  name: "Off-Hand Slot",
+  slot: "shield",
+  icon: "shield-silhouette",
+  equippedName: "Totem of Resilience",
+  enchantment: "Unbreaking III, Mending",
+  description: "Protects against production bugs, null pointer exceptions, and merge conflicts.",
+  level: 94,
+};
 
 export const Inventory: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
-  const [activeSkill, setActiveSkill] = useState<Skill | null>(skillsData[0]);
+  const [activeSkill, setActiveSkill] = useState<Skill | EquipmentItem | null>(skillsData[0]);
   const [recipeIndex, setRecipeIndex] = useState<number>(0);
-  const { playPop } = useSoundEffects();
+  const [showRecipeToast, setShowRecipeToast] = useState<boolean>(false);
+  const { playPop, playChestOpen, playClick } = useSoundEffects();
 
   const recipes = [
     {
@@ -22,8 +89,10 @@ export const Inventory: React.FC = () => {
         { name: "Tailwind CSS", icon: "shield" as const },
         { name: "Node.js", icon: "redstone" as const },
       ],
-      outputName: "Modern Fullstack App",
+      outputName: "Modern Fullstack App (Next.js)",
       outputIcon: "beacon" as const,
+      enchantment: "Server Actions • Turbopack",
+      description: "Crafted modern SSR/SSG web application with React 19 and Next.js 15.",
     },
     {
       name: "FastAPI Engine",
@@ -35,6 +104,8 @@ export const Inventory: React.FC = () => {
       ],
       outputName: "High-Concurrency Backend",
       outputIcon: "sword" as const,
+      enchantment: "Pydantic v2 • Asyncpg",
+      description: "High-throughput asynchronous REST API backend with relational indexing.",
     },
     {
       name: "Systems & Memory",
@@ -46,6 +117,8 @@ export const Inventory: React.FC = () => {
       ],
       outputName: "Low-Level Memory Engine",
       outputIcon: "shield" as const,
+      enchantment: "Zero Leaks • O(1) Access",
+      description: "Custom data structures in C with manual heap management and pointer arithmetic.",
     },
   ];
 
@@ -72,18 +145,70 @@ export const Inventory: React.FC = () => {
     inventorySlots.push(null);
   }
 
-  const handleSelectSkill = (skill: Skill | null) => {
+  // 9 Hotbar slots (Bottom row)
+  const hotbarSkills: Skill[] = [
+    skillsData[0], // TypeScript
+    skillsData[5], // React 19
+    {
+      name: "Next.js 15",
+      enchantment: "Efficiency V",
+      description: "App Router, Server Components, SSR/SSG, and Turbopack compiler.",
+      icon: "beacon" as const,
+      category: "frontend" as const,
+      level: 94,
+      stackCount: 64,
+    },
+    skillsData[1], // Python
+    skillsData[2], // C / C++
+    {
+      name: "FastAPI",
+      enchantment: "Quick Charge III",
+      description: "Modern Python web framework for building high-performance REST APIs.",
+      icon: "potion" as const,
+      category: "backend" as const,
+      level: 86,
+      stackCount: 48,
+    },
+    skillsData[4], // SQL
+    {
+      name: "Docker",
+      enchantment: "Unbreaking III",
+      description: "Containerization, multi-stage builds, and microservices orchestration.",
+      icon: "furnace" as const,
+      category: "tools" as const,
+      level: 82,
+      stackCount: 16,
+    },
+    {
+      name: "Totem of Code",
+      enchantment: "Undying I",
+      description: "Prevents fatal production bugs and guarantees resilience under heavy load.",
+      icon: "totem" as const,
+      category: "tools" as const,
+      level: 99,
+      stackCount: 1,
+    },
+  ];
+
+  const handleSelectSkill = (skill: Skill | EquipmentItem | null) => {
     if (skill) {
       playPop();
       setActiveSkill(skill);
     }
   };
 
+  const handleRecipeBookClick = () => {
+    playChestOpen();
+    setRecipeIndex((prev) => (prev + 1) % recipes.length);
+    setShowRecipeToast(true);
+    setTimeout(() => setShowRecipeToast(false), 2500);
+  };
+
   return (
     <section
       id="skills"
       aria-label="Atharva's Inventory and Skills"
-      className="min-h-screen py-20 px-4 flex flex-col items-center justify-center relative select-none overflow-hidden"
+      className="min-h-screen py-16 px-3 sm:px-6 flex flex-col items-center justify-center relative select-none overflow-hidden"
     >
       {/* Background Workshop Forge Image */}
       <div
@@ -93,40 +218,40 @@ export const Inventory: React.FC = () => {
           imageRendering: "pixelated",
         }}
       >
-        <div className="absolute inset-0 bg-black/65 backdrop-blur-[1px]" />
+        <div className="absolute inset-0 bg-black/70 backdrop-blur-[1px]" />
       </div>
 
       <div className="relative z-10 w-full max-w-4xl flex flex-col items-center">
-        {/* Header */}
-        <div className="flex items-center gap-2 mb-2">
+        {/* Section Header */}
+        <div className="flex items-center gap-2 mb-1">
           <PixelIcon name="crafting-table" size={24} />
           <h2
-            className="font-minecraft text-xl md:text-2xl text-[#ffff55] tracking-wider uppercase"
+            className="font-minecraft text-xl sm:text-2xl text-[#ffff55] tracking-wider uppercase"
             style={{ textShadow: "2px 2px 0 #000" }}
           >
             Inventory & Crafting
           </h2>
         </div>
-        <p className="font-sans text-xs sm:text-sm text-[#9ca3af] mb-6 text-center max-w-md">
-          Hover to inspect enchantments, stack sizes, and proficiency levels.
+        <p className="font-sans text-xs sm:text-sm text-[#cbd5e1] mb-5 text-center max-w-md">
+          Move your mouse to watch Steve look around, or click & drag to spin him 360°!
         </p>
 
         {/* Category Filter Tabs */}
-        <div className="flex flex-wrap justify-center gap-2 mb-6">
+        <div className="flex flex-wrap justify-center gap-1.5 mb-5">
           {categories.map((cat) => (
             <button
               key={cat.id}
               type="button"
               onClick={() => {
-                playPop();
+                playClick();
                 setSelectedCategory(cat.id);
               }}
               className={`
-                px-3 py-1.5 font-minecraft text-xs transition-all cursor-pointer
+                px-2.5 py-1 font-minecraft text-[10px] sm:text-xs transition-all cursor-pointer
                 ${
                   selectedCategory === cat.id
                     ? "bg-[#22c55e] text-white border-2 border-[#86efac] shadow-[0_0_8px_rgba(34,197,94,0.5)]"
-                    : "bg-[#27272a] hover:bg-[#3f3f46] text-[#cccccc] border-2 border-[#52525b]"
+                    : "bg-[#22232a] hover:bg-[#333540] text-[#cccccc] border-2 border-[#444654]"
                 }
               `}
             >
@@ -135,118 +260,150 @@ export const Inventory: React.FC = () => {
           ))}
         </div>
 
-        {/* Minecraft Inventory GUI Container */}
-        <div className="w-full max-w-3xl bg-[#c6c6c6] p-4 sm:p-6 border-4 border-[#ffffff] border-b-4 border-r-4 border-b-[#555555] border-r-[#555555] shadow-2xl relative text-[#373737]">
-          {/* Top Row: Crafting 2x2 Area & Player Preview */}
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6 pb-6 mb-6 border-b-2 border-[#8b8b8b]">
-            {/* Player Info Summary */}
-            <div className="flex items-center gap-3 bg-[#8b8b8b] p-3 border-t-2 border-l-2 border-[#373737] border-b-2 border-r-2 border-[#ffffff]">
-              <PixelIcon name="totem" size={36} />
-              <div>
-                <div className="font-minecraft text-xs font-bold text-white" style={{ textShadow: "1px 1px 0 #000" }}>
-                  Atharva Kurle
-                </div>
-                <div className="font-sans text-[11px] text-[#e0e0e0]">
-                  Full-Stack Crafting Station
-                </div>
-              </div>
+        {/* Exact Authentic Minecraft Survival Inventory GUI Container */}
+        <div
+          className="w-full max-w-[430px] sm:max-w-[460px] bg-[#c6c6c6] p-3 sm:p-4 border-4 border-t-[#ffffff] border-l-[#ffffff] border-b-[#555555] border-r-[#555555] shadow-[0_20px_50px_rgba(0,0,0,0.9)] relative text-[#373737]"
+          style={{ imageRendering: "pixelated" }}
+        >
+          {/* Top Section: Armor + Steve + Shield + Crafting Area */}
+          <div className="flex items-start justify-between gap-2 sm:gap-3 mb-3">
+            {/* Left: 4 Armor Slots */}
+            <div className="flex flex-col gap-1">
+              {armorItems.map((item) => {
+                const isSelected = activeSkill?.name === item.equippedName;
+                return (
+                  <button
+                    key={item.id}
+                    type="button"
+                    onClick={() => handleSelectSkill(item)}
+                    aria-label={`${item.name}: ${item.equippedName}`}
+                    className={`
+                      w-9 h-9 sm:w-10 sm:h-10 bg-[#8b8b8b] relative flex items-center justify-center cursor-pointer transition-all
+                      border-2 border-t-[#373737] border-l-[#373737] border-b-[#ffffff] border-r-[#ffffff]
+                      hover:bg-[#9e9e9e] active:scale-95
+                      ${isSelected ? "ring-2 ring-[#ffff55] ring-offset-1 ring-offset-[#8b8b8b]" : ""}
+                    `}
+                    title={`${item.equippedName} (${item.enchantment})`}
+                  >
+                    <PixelIcon name={item.icon} size={22} className="opacity-90 hover:opacity-100" />
+                    {/* Small equipped indicator dot */}
+                    <span className="absolute bottom-0.5 right-0.5 w-1.5 h-1.5 bg-[#4ade80] rounded-full" />
+                  </button>
+                );
+              })}
             </div>
 
-            {/* 2x2 Crafting Grid with Interactive Recipes */}
-            <div className="flex flex-col sm:flex-row items-center gap-4">
-              {/* Recipe Selector Buttons */}
-              <div className="flex flex-col gap-1">
-                <span className="font-minecraft text-[9px] text-[#4a4a4a] text-center sm:text-left">
-                  Recipes:
-                </span>
-                {[
-                  { name: "Next.js 15", result: "beacon", desc: "React 19 + TypeScript" },
-                  { name: "FastAPI Engine", result: "sword", desc: "Python + PostgreSQL" },
-                  { name: "Systems C", result: "shield", desc: "C + Valgrind + GDB" },
-                ].map((rec, i) => (
-                  <button
-                    key={rec.name}
-                    type="button"
-                    onClick={() => {
-                      playPop();
-                      setRecipeIndex(i);
-                    }}
-                    className={`px-2 py-0.5 text-left font-minecraft text-[9px] cursor-pointer transition-colors border ${
-                      recipeIndex === i
-                        ? "bg-[#3b82f6] text-white border-white shadow-xs"
-                        : "bg-[#a8a8a8] hover:bg-[#b8b8b8] text-[#222222] border-[#777777]"
-                    }`}
-                  >
-                    {rec.name}
-                  </button>
-                ))}
+            {/* Center: Steve 3D Preview Chamber */}
+            <div className="flex items-end gap-1.5">
+              <div className="w-[105px] sm:w-[115px] h-[156px] bg-black border-2 border-t-[#373737] border-l-[#373737] border-b-[#ffffff] border-r-[#ffffff] flex items-center justify-center relative overflow-hidden">
+                <InteractiveSteve className="w-full h-full" />
               </div>
 
-              {/* 2x2 Grid */}
-              <div className="flex items-center gap-3">
-                <div>
-                  <div className="font-minecraft text-[10px] text-[#4a4a4a] mb-1 text-center">
-                    Crafting 2x2
-                  </div>
-                  <div className="grid grid-cols-2 gap-1 bg-[#8b8b8b] p-1.5 border-t-2 border-l-2 border-[#373737] border-b-2 border-r-2 border-[#ffffff]">
-                    {currentRecipe.inputs.map((item, idx) => (
-                      <div
-                        key={`craft-in-${idx}`}
-                        className="w-9 h-9 bg-[#8b8b8b] border-2 border-t-[#373737] border-l-[#373737] border-b-[#ffffff] border-r-[#ffffff] flex items-center justify-center group relative cursor-pointer"
-                        title={item.name}
-                      >
-                        <PixelIcon name={item.icon} size={18} />
-                      </div>
-                    ))}
-                  </div>
+              {/* Offhand Slot (Beside Steve at the bottom) */}
+              <button
+                type="button"
+                onClick={() => handleSelectSkill(offhandItem)}
+                aria-label="Off-Hand Shield Slot"
+                className={`
+                  w-9 h-9 sm:w-10 sm:h-10 bg-[#8b8b8b] relative flex items-center justify-center cursor-pointer transition-all
+                  border-2 border-t-[#373737] border-l-[#373737] border-b-[#ffffff] border-r-[#ffffff]
+                  hover:bg-[#9e9e9e] active:scale-95
+                  ${activeSkill?.name === offhandItem.equippedName ? "ring-2 ring-[#ffff55] ring-offset-1 ring-offset-[#8b8b8b]" : ""}
+                `}
+                title={`${offhandItem.equippedName} (${offhandItem.enchantment})`}
+              >
+                <PixelIcon name="shield-silhouette" size={22} className="opacity-90 hover:opacity-100" />
+                <span className="absolute bottom-0.5 right-0.5 w-1.5 h-1.5 bg-[#38bdf8] rounded-full" />
+              </button>
+            </div>
+
+            {/* Right: Crafting 2x2 Grid + Green Recipe Book + Arrow + Result */}
+            <div className="flex flex-col items-center">
+              <div className="font-minecraft text-[11px] text-[#404040] font-bold mb-1 self-start">
+                Crafting
+              </div>
+
+              <div className="flex items-center gap-2">
+                {/* 2x2 Slots Grid */}
+                <div className="grid grid-cols-2 gap-1 bg-[#8b8b8b] p-1 border-t-2 border-l-2 border-[#373737] border-b-2 border-r-2 border-[#ffffff]">
+                  {currentRecipe.inputs.map((inp, idx) => (
+                    <div
+                      key={`craft-${idx}`}
+                      className="w-8 h-8 sm:w-9 sm:h-9 bg-[#8b8b8b] border-2 border-t-[#373737] border-l-[#373737] border-b-[#ffffff] border-r-[#ffffff] flex items-center justify-center cursor-pointer group"
+                      title={inp.name}
+                    >
+                      <PixelIcon name={inp.icon} size={18} className="group-hover:scale-110 transition-transform" />
+                    </div>
+                  ))}
                 </div>
 
                 {/* Arrow */}
-                <div className="font-minecraft text-lg text-[#4a4a4a] pt-4">
-                  ▶
+                <div className="font-minecraft text-base sm:text-lg text-[#404040]">
+                  ➔
                 </div>
 
                 {/* Result Slot */}
-                <div>
-                  <div className="font-minecraft text-[10px] text-[#4a4a4a] mb-1 text-center">
-                    Result
-                  </div>
-                  <div className="w-13 h-13 bg-[#8b8b8b] p-1 border-t-2 border-l-2 border-[#373737] border-b-2 border-r-2 border-[#ffffff] flex items-center justify-center mc-enchanted">
-                    <div className="relative group cursor-pointer" title={currentRecipe.outputName}>
-                      <PixelIcon name={currentRecipe.outputIcon} size={28} className="animate-pulse" />
-                      <span className="absolute -bottom-1 -right-1 font-minecraft text-[9px] text-[#ffff55]" style={{ textShadow: "1px 1px 0 #000" }}>
-                        ★
-                      </span>
-                    </div>
-                  </div>
+                <div
+                  onClick={() => {
+                    playPop();
+                    setActiveSkill({
+                      name: currentRecipe.outputName,
+                      enchantment: currentRecipe.enchantment,
+                      description: currentRecipe.description,
+                      icon: currentRecipe.outputIcon,
+                      category: "frontend",
+                      level: 98,
+                      stackCount: 1,
+                    });
+                  }}
+                  className="w-12 h-12 sm:w-13 sm:h-13 bg-[#8b8b8b] border-2 border-t-[#373737] border-l-[#373737] border-b-[#ffffff] border-r-[#ffffff] flex items-center justify-center mc-enchanted cursor-pointer hover:scale-105 transition-transform"
+                  title={`${currentRecipe.outputName}: Click to inspect`}
+                >
+                  <PixelIcon name={currentRecipe.outputIcon} size={28} className="animate-pulse" />
                 </div>
+              </div>
+
+              {/* Green Recipe Book Button (Directly beneath 2x2 grid) */}
+              <div className="w-full flex items-center justify-start mt-2 relative">
+                <button
+                  type="button"
+                  onClick={handleRecipeBookClick}
+                  className="w-8 h-8 sm:w-9 sm:h-9 bg-[#8b8b8b] hover:bg-[#a0a0a0] active:scale-95 border-2 border-t-[#ffffff] border-l-[#ffffff] border-b-[#373737] border-r-[#373737] flex items-center justify-center cursor-pointer shadow-xs transition-colors"
+                  title="Click Recipe Book to cycle recipes!"
+                  aria-label="Cycle Crafting Recipes"
+                >
+                  <PixelIcon name="recipe-book" size={20} />
+                </button>
+
+                <span className="font-minecraft text-[8px] text-[#555555] ml-2 leading-tight">
+                  {currentRecipe.name}
+                </span>
+
+                {showRecipeToast && (
+                  <div className="absolute top-full mt-1 left-0 z-50 bg-[#1c1c1c] text-white border border-[#ffff55] px-2 py-1 text-[9px] font-minecraft whitespace-nowrap shadow-lg">
+                    📖 Cycled to: {currentRecipe.name}!
+                  </div>
+                )}
               </div>
             </div>
           </div>
 
-          {/* Main 9x3 Inventory Grid */}
+          {/* Middle Section: 3 Rows of 9 Main Inventory Slots (27 Slots) */}
           <div className="mb-2">
-            <div className="font-minecraft text-xs text-[#4a4a4a] mb-2 font-bold flex items-center justify-between">
-              <span>Inventory (27 Slots)</span>
-              <span className="text-[10px] text-[#555555] font-normal">
-                Purple shimmer = Enchanted Masteries
-              </span>
-            </div>
-
-            <div className="grid grid-cols-9 gap-1 sm:gap-1.5 p-2 bg-[#8b8b8b] border-t-2 border-l-2 border-[#373737] border-b-2 border-r-2 border-[#ffffff]">
+            <div className="grid grid-cols-9 gap-1 sm:gap-1.5 p-1.5 sm:p-2 bg-[#8b8b8b] border-t-2 border-l-2 border-[#373737] border-b-2 border-r-2 border-[#ffffff]">
               {inventorySlots.map((skill, index) => {
                 const isSelected = activeSkill?.name === skill?.name;
 
                 return (
                   <div
-                    key={index}
+                    key={`inv-${index}`}
                     className="relative group flex items-center justify-center aspect-square"
                   >
                     <button
                       type="button"
                       disabled={!skill}
                       onClick={() => handleSelectSkill(skill)}
-                      aria-label={skill ? `${skill.name}: ${skill.enchantment}` : "Empty inventory slot"}
+                      aria-label={skill ? `${skill.name}: ${skill.enchantment}` : "Empty slot"}
                       className={`
                         w-full h-full relative flex items-center justify-center outline-none transition-all
                         border-2 border-t-[#373737] border-l-[#373737] border-b-[#ffffff] border-r-[#ffffff]
@@ -256,27 +413,20 @@ export const Inventory: React.FC = () => {
                             : "bg-[#8b8b8b]/60 cursor-default"
                         }
                         ${skill && skill.level >= 88 ? "mc-enchanted" : ""}
-                        ${
-                          isSelected
-                            ? "ring-2 ring-[#ffff55] ring-offset-1 ring-offset-[#8b8b8b]"
-                            : ""
-                        }
+                        ${isSelected ? "ring-2 ring-[#ffff55] ring-offset-1 ring-offset-[#8b8b8b]" : ""}
                       `}
                     >
                       {skill && (
                         <>
-                          {/* Pixel Icon */}
                           <PixelIcon
                             name={skill.icon}
-                            size={22}
+                            size={20}
                             className={`transform group-hover:scale-110 transition-transform ${
                               skill.level > 90 ? "drop-shadow-[0_0_4px_#c084fc]" : ""
                             }`}
                           />
-
-                          {/* Stack Count (e.g. 64) */}
                           <span
-                            className="absolute bottom-0.5 right-1 font-minecraft text-[9px] sm:text-[10px] text-white font-bold pointer-events-none"
+                            className="absolute bottom-0.5 right-0.5 font-minecraft text-[8px] sm:text-[9px] text-white font-bold pointer-events-none"
                             style={{ textShadow: "1px 1px 0 #000" }}
                           >
                             {skill.stackCount}
@@ -304,24 +454,86 @@ export const Inventory: React.FC = () => {
             </div>
           </div>
 
-          {/* Active Item Details Footer */}
-          {activeSkill && (
-            <div className="mt-4 p-3 bg-[#1e1e24] text-white border-2 border-[#333333] flex flex-col sm:flex-row items-center justify-between gap-3">
-              <div className="flex items-center gap-3">
-                <PixelIcon name={activeSkill.icon} size={28} />
-                <div>
-                  <div className="font-minecraft text-xs text-[#ffff55]">
-                    {activeSkill.name} - {activeSkill.enchantment}
+          {/* Bottom Section: 1 Row of 9 Hotbar Slots */}
+          <div>
+            <div className="grid grid-cols-9 gap-1 sm:gap-1.5 p-1.5 sm:p-2 bg-[#8b8b8b] border-t-2 border-l-2 border-[#373737] border-b-2 border-r-2 border-[#ffffff]">
+              {hotbarSkills.map((skill, index) => {
+                const isSelected = activeSkill?.name === skill.name;
+
+                return (
+                  <div
+                    key={`hotbar-${index}`}
+                    className="relative group flex items-center justify-center aspect-square"
+                  >
+                    <button
+                      type="button"
+                      onClick={() => handleSelectSkill(skill)}
+                      aria-label={`${skill.name}: Hotbar slot ${index + 1}`}
+                      className={`
+                        w-full h-full relative flex items-center justify-center outline-none transition-all
+                        border-2 border-t-[#373737] border-l-[#373737] border-b-[#ffffff] border-r-[#ffffff]
+                        bg-[#8b8b8b] hover:bg-[#a0a0a0] cursor-pointer
+                        ${skill.level >= 88 ? "mc-enchanted" : ""}
+                        ${isSelected ? "ring-2 ring-[#ffff55] ring-offset-1 ring-offset-[#8b8b8b]" : ""}
+                      `}
+                    >
+                      <PixelIcon
+                        name={skill.icon}
+                        size={20}
+                        className="transform group-hover:scale-110 transition-transform"
+                      />
+                      <span
+                        className="absolute bottom-0.5 right-0.5 font-minecraft text-[8px] sm:text-[9px] text-white font-bold pointer-events-none"
+                        style={{ textShadow: "1px 1px 0 #000" }}
+                      >
+                        {skill.stackCount}
+                      </span>
+                    </button>
+
+                    {/* Tooltip on Hover */}
+                    <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all pointer-events-none z-50">
+                      <MinecraftTooltipContent
+                        title={skill.name}
+                        enchantment={skill.enchantment}
+                        description={skill.description}
+                        category={skill.category}
+                        level={skill.level}
+                        rarity={skill.level >= 90 ? "legendary" : "rare"}
+                      />
+                    </div>
                   </div>
-                  <div className="font-sans text-xs text-[#a1a1aa]">
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Active Item Details Footer Box */}
+          {activeSkill && (
+            <div className="mt-3 p-2.5 bg-[#1a1b22] text-white border-2 border-[#333333] flex flex-col sm:flex-row items-center justify-between gap-2.5">
+              <div className="flex items-center gap-2.5">
+                {"icon" in activeSkill && typeof activeSkill.icon === "string" && (
+                  <PixelIcon name={activeSkill.icon as unknown as Parameters<typeof PixelIcon>[0]["name"]} size={24} />
+                )}
+                <div>
+                  <div className="font-minecraft text-xs text-[#ffff55] flex items-center gap-2">
+                    <span>{"equippedName" in activeSkill ? activeSkill.equippedName : activeSkill.name}</span>
+                    <span className="text-[#c084fc] text-[10px]">
+                      {activeSkill.enchantment}
+                    </span>
+                  </div>
+                  <div className="font-sans text-[11px] text-[#cbd5e1] line-clamp-1">
                     {activeSkill.description}
                   </div>
                 </div>
               </div>
-              <div className="shrink-0 flex items-center gap-2 font-minecraft text-xs text-[#4ade80]">
+              <div className="shrink-0 flex items-center gap-2 font-minecraft text-[10px] text-[#4ade80]">
                 <span>LVL {activeSkill.level}</span>
-                <span className="text-[#a1a1aa]">|</span>
-                <span>STACK {activeSkill.stackCount}</span>
+                {"stackCount" in activeSkill && (
+                  <>
+                    <span className="text-[#888888]">|</span>
+                    <span>STACK {activeSkill.stackCount}</span>
+                  </>
+                )}
               </div>
             </div>
           )}

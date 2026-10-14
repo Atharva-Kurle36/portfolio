@@ -16,7 +16,13 @@ interface PixelIconProps {
     | "map"
     | "eye-of-ender"
     | "trophy"
-    | "hunger";
+    | "hunger"
+    | "helmet-silhouette"
+    | "chestplate-silhouette"
+    | "leggings-silhouette"
+    | "boots-silhouette"
+    | "shield-silhouette"
+    | "recipe-book";
   className?: string;
   size?: number;
 }
@@ -576,6 +582,92 @@ export const PixelIcon: React.FC<PixelIconProps> = ({
           <rect x="1" y="11" width="3" height="3" fill="#f1f5f9" />
           <rect x="3" y="9" width="3" height="3" fill="#cbd5e1" />
           <rect x="2" y="10" width="1" height="1" fill="#94a3b8" />
+        </svg>
+      );
+
+    case "helmet-silhouette":
+      return (
+        <svg {...commonProps}>
+          {/* Faint grey silhouette of helmet */}
+          <rect x="4" y="2" width="8" height="2" fill="#525252" />
+          <rect x="3" y="4" width="10" height="7" fill="#525252" />
+          {/* Eyes opening */}
+          <rect x="5" y="7" width="2" height="2" fill="#8b8b8b" />
+          <rect x="9" y="7" width="2" height="2" fill="#8b8b8b" />
+          {/* Cheek guards */}
+          <rect x="3" y="11" width="3" height="3" fill="#525252" />
+          <rect x="10" y="11" width="3" height="3" fill="#525252" />
+        </svg>
+      );
+
+    case "chestplate-silhouette":
+      return (
+        <svg {...commonProps}>
+          {/* Shoulder pads */}
+          <rect x="2" y="2" width="4" height="3" fill="#525252" />
+          <rect x="10" y="2" width="4" height="3" fill="#525252" />
+          {/* Neck opening */}
+          <rect x="6" y="2" width="4" height="3" fill="#8b8b8b" />
+          {/* Torso */}
+          <rect x="3" y="5" width="10" height="9" fill="#525252" />
+        </svg>
+      );
+
+    case "leggings-silhouette":
+      return (
+        <svg {...commonProps}>
+          {/* Waist */}
+          <rect x="3" y="2" width="10" height="4" fill="#525252" />
+          {/* Left Leg */}
+          <rect x="3" y="6" width="4" height="8" fill="#525252" />
+          {/* Right Leg */}
+          <rect x="9" y="6" width="4" height="8" fill="#525252" />
+          {/* Middle gap */}
+          <rect x="7" y="6" width="2" height="8" fill="#8b8b8b" />
+        </svg>
+      );
+
+    case "boots-silhouette":
+      return (
+        <svg {...commonProps}>
+          {/* Left boot */}
+          <rect x="3" y="4" width="3" height="8" fill="#525252" />
+          <rect x="2" y="10" width="5" height="4" fill="#525252" />
+          {/* Right boot */}
+          <rect x="10" y="4" width="3" height="8" fill="#525252" />
+          <rect x="9" y="10" width="5" height="4" fill="#525252" />
+        </svg>
+      );
+
+    case "shield-silhouette":
+      return (
+        <svg {...commonProps}>
+          {/* Faint shield outline */}
+          <rect x="4" y="2" width="8" height="2" fill="#525252" />
+          <rect x="3" y="4" width="10" height="6" fill="#525252" />
+          <rect x="4" y="10" width="8" height="2" fill="#525252" />
+          <rect x="5" y="12" width="6" height="2" fill="#525252" />
+          <rect x="7" y="14" width="2" height="1" fill="#525252" />
+          <rect x="5" y="4" width="6" height="6" fill="#8b8b8b" />
+        </svg>
+      );
+
+    case "recipe-book":
+      return (
+        <svg {...commonProps}>
+          {/* Green recipe book */}
+          <rect x="2" y="2" width="12" height="12" fill="#15803d" />
+          <rect x="2" y="2" width="12" height="1" fill="#22c55e" />
+          <rect x="2" y="13" width="12" height="1" fill="#14532d" />
+          <rect x="2" y="2" width="1" height="12" fill="#22c55e" />
+          <rect x="13" y="2" width="1" height="12" fill="#14532d" />
+          {/* Pages */}
+          <rect x="4" y="4" width="8" height="8" fill="#fdf0d5" />
+          <rect x="5" y="6" width="6" height="1" fill="#bfa370" />
+          <rect x="5" y="8" width="6" height="1" fill="#bfa370" />
+          {/* Corner gold trim */}
+          <rect x="2" y="2" width="2" height="2" fill="#eab308" />
+          <rect x="12" y="2" width="2" height="2" fill="#eab308" />
         </svg>
       );
 
