@@ -16,15 +16,24 @@ import { useKeyboardHotbar } from "@/hooks/useKeyboardHotbar";
 import { useSoundEffects } from "@/hooks/useSoundEffects";
 
 export default function Home() {
+  const [isEntered, setIsEntered] = useState(false);
   const [totemActive, setTotemActive] = useState(false);
   const { scrollPercent, level, currentSection } = useScrollProgress();
-  const { isMuted, toggleMute } = useSoundEffects();
+  const { isMuted, toggleMute, playLevelUp } = useSoundEffects();
 
   const scrollToSection = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
       el.scrollIntoView({ behavior: "smooth" });
     }
+  };
+
+  const handleEnter = (sectionId: string = "about") => {
+    setIsEntered(true);
+    playLevelUp();
+    setTimeout(() => {
+      scrollToSection(sectionId);
+    }, 150);
   };
 
   // Map section name to slot index
@@ -147,59 +156,70 @@ export default function Home() {
   ];
 
   return (
-    <main className="relative min-h-screen text-[#f4f4f5] bg-[#121316]">
+    <main
+      className={`relative text-[#f4f4f5] bg-[#121316] ${
+        isEntered ? "min-h-screen overflow-x-hidden" : "h-screen overflow-hidden"
+      }`}
+    >
       {/* 1. Loading Screen */}
       <LoadingScreen />
 
       {/* 2. Title Screen (Hero) */}
       <TitleScreen
+        onEnter={handleEnter}
         onNavigate={scrollToSection}
         onTriggerTotem={() => setTotemActive(true)}
+        isEntered={isEntered}
       />
 
-      {/* 3. About Book & Quill */}
-      <AboutBook />
+      {/* Everything below is only visible after clicking Enter */}
+      {isEntered && (
+        <div className="animate-fadeIn">
+          {/* 3. About Book & Quill */}
+          <AboutBook />
 
-      {/* 4. Skills & Crafting Inventory */}
-      <Inventory />
+          {/* 4. Skills & Crafting Inventory */}
+          <Inventory />
 
-      {/* 5. World Select (Projects) */}
-      <WorldSelect />
+          {/* 5. World Select (Projects) */}
+          <WorldSelect />
 
-      {/* 6. Advancement Tree (Timeline) */}
-      <AdvancementTree />
+          {/* 6. Advancement Tree (Timeline) */}
+          <AdvancementTree />
 
-      {/* 7. Server List (Multiplayer Contact) */}
-      <ServerList />
+          {/* 7. Server List (Multiplayer Contact) */}
+          <ServerList />
 
-      {/* Footer info */}
-      <footer className="py-16 pb-36 text-center text-xs font-minecraft text-[#71717a] select-none border-t border-[#27272a] bg-[#0c0d0f]">
-        <div className="max-w-md mx-auto px-4 space-y-2">
-          <div className="text-[#a1a1aa]">
-            ATHARVA KURLE • MUMBAI, INDIA
-          </div>
-          <div className="text-[10px] text-[#52525b]">
-            Crafted with Next.js App Router, React 19, TypeScript & Tailwind CSS.
-          </div>
-          <div className="text-[9px] text-[#3f3f46]">
-            Zero copyrighted Mojang assets used. All vector icons & shaders custom designed.
+          {/* Footer info */}
+          <footer className="py-16 pb-36 text-center text-xs font-minecraft text-[#71717a] select-none border-t border-[#27272a] bg-[#0c0d0f]">
+            <div className="max-w-md mx-auto px-4 space-y-2">
+              <div className="text-[#a1a1aa]">
+                ATHARVA KURLE • MUMBAI, INDIA
+              </div>
+              <div className="text-[10px] text-[#52525b]">
+                Crafted with Next.js App Router, React 19, TypeScript & Tailwind CSS.
+              </div>
+              <div className="text-[9px] text-[#3f3f46]">
+                Zero copyrighted Mojang assets used. All vector icons & shaders custom designed.
+              </div>
+            </div>
+          </footer>
+
+          {/* Bottom Sticky UI: XP Bar + 9-slot Hotbar */}
+          <div className="fixed bottom-0 left-0 right-0 z-40 pb-2 pointer-events-none">
+            <div className="pointer-events-auto">
+              <XpBar progress={scrollPercent} level={level} />
+            </div>
+            <div className="pointer-events-auto mt-1">
+              <Hotbar
+                activeSlot={activeSlot}
+                onSelectSlot={selectSlot}
+                slots={hotbarSlots}
+              />
+            </div>
           </div>
         </div>
-      </footer>
-
-      {/* Bottom Sticky UI: XP Bar + 9-slot Hotbar */}
-      <div className="fixed bottom-0 left-0 right-0 z-40 pb-2 pointer-events-none">
-        <div className="pointer-events-auto">
-          <XpBar progress={scrollPercent} level={level} />
-        </div>
-        <div className="pointer-events-auto mt-1">
-          <Hotbar
-            activeSlot={activeSlot}
-            onSelectSlot={selectSlot}
-            slots={hotbarSlots}
-          />
-        </div>
-      </div>
+      )}
 
       {/* Easter Egg Totem Animation */}
       <ConfettiEasterEgg

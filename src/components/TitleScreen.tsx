@@ -6,13 +6,17 @@ import { PixelIcon } from "@/components/ui/PixelIcon";
 import { useSoundEffects } from "@/hooks/useSoundEffects";
 
 interface TitleScreenProps {
+  onEnter: (sectionId?: string) => void;
   onNavigate: (sectionId: string) => void;
   onTriggerTotem?: () => void;
+  isEntered?: boolean;
 }
 
 export const TitleScreen: React.FC<TitleScreenProps> = ({
+  onEnter,
   onNavigate,
   onTriggerTotem,
+  isEntered = false,
 }) => {
   const [splashIndex, setSplashIndex] = useState(0);
   const [showOptionsModal, setShowOptionsModal] = useState(false);
@@ -134,12 +138,26 @@ export const TitleScreen: React.FC<TitleScreenProps> = ({
 
       {/* Main Minecraft Menu Buttons matching Reference Image */}
       <div className="z-10 w-full max-w-[420px] px-4 flex flex-col gap-2.5 my-auto pb-8">
+        {/* Button 0: Dedicated ENTER Button */}
+        <MinecraftButton
+          fullWidth
+          size="lg"
+          variant="primary"
+          onClick={() => onEnter("about")}
+          className="shadow-[0_0_12px_rgba(34,197,94,0.6)]"
+        >
+          <span className="flex items-center justify-center gap-2">
+            <span className="text-[#ffff55]">▶</span>
+            <span>{isEntered ? "Enter World (Explore)" : "Enter World"}</span>
+          </span>
+        </MinecraftButton>
+
         {/* Button 1: Singleplayer */}
         <MinecraftButton
           fullWidth
           size="lg"
           variant="default"
-          onClick={() => onNavigate("projects")}
+          onClick={() => onEnter("projects")}
         >
           Singleplayer
         </MinecraftButton>
@@ -149,7 +167,7 @@ export const TitleScreen: React.FC<TitleScreenProps> = ({
           fullWidth
           size="lg"
           variant="default"
-          onClick={() => onNavigate("contact")}
+          onClick={() => onEnter("contact")}
         >
           Multiplayer
         </MinecraftButton>
@@ -159,7 +177,7 @@ export const TitleScreen: React.FC<TitleScreenProps> = ({
           fullWidth
           size="lg"
           variant="default"
-          onClick={() => onNavigate("about")}
+          onClick={() => onEnter("about")}
         >
           Atharva&apos;s Realms
         </MinecraftButton>
@@ -169,7 +187,7 @@ export const TitleScreen: React.FC<TitleScreenProps> = ({
           {/* Globe Button (Square) */}
           <button
             type="button"
-            onClick={() => onNavigate("skills")}
+            onClick={() => onEnter("skills")}
             aria-label="Language & Skills"
             title="Inventory & Skills"
             className="w-12 h-11 bg-[#7c7c7c] hover:bg-[#8e8e8e] border-t-2 border-l-2 border-[#ffffff] border-b-2 border-r-2 border-[#2b2b2b] active:border-t-[#2b2b2b] active:border-l-[#2b2b2b] active:border-b-[#ffffff] active:border-r-[#ffffff] flex items-center justify-center cursor-pointer shadow-[inset_0_0_0_1px_rgba(0,0,0,0.5)] shrink-0"
