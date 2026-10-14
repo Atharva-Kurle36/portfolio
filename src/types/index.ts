@@ -58,6 +58,9 @@ export interface TimelineNode {
   icon: IconName;
   advancementType: "task" | "goal" | "challenge";
   xpReward: number;
+  parentId?: string;
+  tab?: "story" | "adventure" | "nether" | "end";
+  rewardItem?: string;
 }
 
 export interface Profile {

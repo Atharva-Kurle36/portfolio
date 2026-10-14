@@ -35,6 +35,68 @@
   image-rendering: crisp-edges;
 }
 
+/* Floating Dropped Item Bobbing Animation */
+@keyframes mc-bob {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(1deg);
+  }
+}
+
+.animate-mc-bob {
+  animation: mc-bob 3s ease-in-out infinite;
+}
+
+/* Authentic Minecraft Enchantment Glint */
+@keyframes mc-glint {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.mc-enchanted {
+  position: relative;
+  overflow: hidden;
+}
+
+.mc-enchanted::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    115deg,
+    transparent 20%,
+    rgba(192, 132, 252, 0.45) 45%,
+    rgba(56, 189, 248, 0.45) 55%,
+    transparent 80%
+  );
+  background-size: 200% 100%;
+  animation: mc-glint 3s linear infinite;
+  pointer-events: none;
+  mix-blend-mode: color-dodge;
+}
+
+/* Portal Swirl Pulse */
+@keyframes mc-portal {
+  0%, 100% {
+    filter: drop-shadow(0 0 15px rgba(168, 85, 247, 0.7));
+    transform: scale(1);
+  }
+  50% {
+    filter: drop-shadow(0 0 25px rgba(217, 70, 239, 0.9));
+    transform: scale(1.02);
+  }
+}
+
+.animate-mc-portal {
+  animation: mc-portal 4s ease-in-out infinite;
+}
+
 /* Custom Minecraft Scrollbar */
 ::-webkit-scrollbar {
   width: 10px;

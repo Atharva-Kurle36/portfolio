@@ -37,9 +37,20 @@ export const WorldSelect: React.FC = () => {
     <section
       id="projects"
       aria-label="Atharva's Projects and Worlds"
-      className="min-h-screen py-20 px-4 flex flex-col items-center justify-center relative select-none"
+      className="min-h-screen py-20 px-4 flex flex-col items-center justify-center relative select-none overflow-hidden"
     >
-      <div className="w-full max-w-4xl flex flex-col items-center">
+      {/* Background World Panorama Image */}
+      <div
+        className="absolute inset-0 z-0 bg-cover bg-center"
+        style={{
+          backgroundImage: "url('/images/minecraft_sunset_panorama.jpg')",
+          imageRendering: "pixelated",
+        }}
+      >
+        <div className="absolute inset-0 bg-black/70 backdrop-blur-[2px]" />
+      </div>
+
+      <div className="relative z-10 w-full max-w-4xl flex flex-col items-center">
         {/* Header */}
         <div className="flex items-center gap-2 mb-2">
           <PixelIcon name="compass" size={24} />

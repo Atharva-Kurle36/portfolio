@@ -63,9 +63,20 @@ export const ServerList: React.FC = () => {
     <section
       id="contact"
       aria-label="Multiplayer Server List and Contact"
-      className="min-h-screen py-20 px-4 flex flex-col items-center justify-center relative select-none"
+      className="min-h-screen py-20 px-4 flex flex-col items-center justify-center relative select-none overflow-hidden"
     >
-      <div className="w-full max-w-4xl flex flex-col items-center">
+      {/* Background Portal Image */}
+      <div
+        className="absolute inset-0 z-0 bg-cover bg-center"
+        style={{
+          backgroundImage: "url('/images/minecraft_portal.jpg')",
+          imageRendering: "pixelated",
+        }}
+      >
+        <div className="absolute inset-0 bg-black/65 backdrop-blur-[1px]" />
+      </div>
+
+      <div className="relative z-10 w-full max-w-4xl flex flex-col items-center">
         {/* Header */}
         <div className="flex items-center gap-2 mb-2">
           <PixelIcon name="server" size={24} />

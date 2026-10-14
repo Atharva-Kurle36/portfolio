@@ -12,7 +12,11 @@ interface PixelIconProps {
     | "external"
     | "check"
     | "globe"
-    | "accessibility";
+    | "accessibility"
+    | "map"
+    | "eye-of-ender"
+    | "trophy"
+    | "hunger";
   className?: string;
   size?: number;
 }
@@ -499,6 +503,79 @@ export const PixelIcon: React.FC<PixelIconProps> = ({
           {/* Legs */}
           <rect x="5" y="10" width="2" height="4" fill="#ffffff" />
           <rect x="9" y="10" width="2" height="4" fill="#ffffff" />
+        </svg>
+      );
+
+    case "map":
+      return (
+        <svg {...commonProps}>
+          {/* Outer Map Parchment */}
+          <rect x="2" y="2" width="12" height="12" fill="#e8d5a8" />
+          <rect x="2" y="2" width="12" height="1" fill="#bfa370" />
+          <rect x="2" y="13" width="12" height="1" fill="#8c7042" />
+          <rect x="2" y="2" width="1" height="12" fill="#bfa370" />
+          <rect x="13" y="2" width="1" height="12" fill="#8c7042" />
+          {/* Map Landmass (Green & Water Blue) */}
+          <rect x="4" y="4" width="4" height="4" fill="#4ade80" />
+          <rect x="8" y="5" width="4" height="5" fill="#38bdf8" />
+          <rect x="5" y="8" width="5" height="3" fill="#86efac" />
+          {/* Red X marks the spot */}
+          <rect x="10" y="3" width="1" height="1" fill="#ef4444" />
+          <rect x="12" y="3" width="1" height="1" fill="#ef4444" />
+          <rect x="11" y="4" width="1" height="1" fill="#ef4444" />
+          <rect x="10" y="5" width="1" height="1" fill="#ef4444" />
+          <rect x="12" y="5" width="1" height="1" fill="#ef4444" />
+        </svg>
+      );
+
+    case "eye-of-ender":
+      return (
+        <svg {...commonProps}>
+          {/* Dark Green Outer Ring */}
+          <rect x="4" y="2" width="8" height="2" fill="#064e3b" />
+          <rect x="2" y="4" width="2" height="8" fill="#064e3b" />
+          <rect x="12" y="4" width="2" height="8" fill="#064e3b" />
+          <rect x="4" y="12" width="8" height="2" fill="#064e3b" />
+          {/* Teal Inner Gem */}
+          <rect x="4" y="4" width="8" height="8" fill="#0d9488" />
+          <rect x="5" y="5" width="6" height="6" fill="#14b8a6" />
+          {/* Vertical Slit Pupil (Magenta / Purple) */}
+          <rect x="7" y="4" width="2" height="8" fill="#86198f" />
+          <rect x="7" y="6" width="2" height="4" fill="#d946ef" />
+          {/* Highlight */}
+          <rect x="5" y="5" width="1" height="1" fill="#ccfbf1" />
+        </svg>
+      );
+
+    case "trophy":
+      return (
+        <svg {...commonProps}>
+          {/* Gold Cup Top */}
+          <rect x="3" y="2" width="10" height="2" fill="#fbbf24" />
+          <rect x="4" y="4" width="8" height="4" fill="#f59e0b" />
+          <rect x="5" y="8" width="6" height="2" fill="#d97706" />
+          {/* Handles */}
+          <rect x="1" y="3" width="2" height="3" fill="#fbbf24" />
+          <rect x="13" y="3" width="2" height="3" fill="#fbbf24" />
+          {/* Stem & Base */}
+          <rect x="7" y="10" width="2" height="2" fill="#b45309" />
+          <rect x="4" y="12" width="8" height="2" fill="#78350f" />
+          {/* Sparkle */}
+          <rect x="5" y="3" width="2" height="2" fill="#ffffff" />
+        </svg>
+      );
+
+    case "hunger":
+      return (
+        <svg {...commonProps}>
+          {/* Meat Body */}
+          <rect x="4" y="2" width="7" height="6" fill="#b45309" />
+          <rect x="3" y="4" width="9" height="5" fill="#d97706" />
+          <rect x="5" y="3" width="5" height="3" fill="#f59e0b" />
+          {/* Bone tip */}
+          <rect x="1" y="11" width="3" height="3" fill="#f1f5f9" />
+          <rect x="3" y="9" width="3" height="3" fill="#cbd5e1" />
+          <rect x="2" y="10" width="1" height="1" fill="#94a3b8" />
         </svg>
       );
 

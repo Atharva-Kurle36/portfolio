@@ -10,7 +10,46 @@ import { useSoundEffects } from "@/hooks/useSoundEffects";
 export const Inventory: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [activeSkill, setActiveSkill] = useState<Skill | null>(skillsData[0]);
+  const [recipeIndex, setRecipeIndex] = useState<number>(0);
   const { playPop } = useSoundEffects();
+
+  const recipes = [
+    {
+      name: "Next.js 15 App",
+      inputs: [
+        { name: "React 19", icon: "beacon" as const },
+        { name: "TypeScript", icon: "sword" as const },
+        { name: "Tailwind CSS", icon: "shield" as const },
+        { name: "Node.js", icon: "redstone" as const },
+      ],
+      outputName: "Modern Fullstack App",
+      outputIcon: "beacon" as const,
+    },
+    {
+      name: "FastAPI Engine",
+      inputs: [
+        { name: "Python", icon: "potion" as const },
+        { name: "PostgreSQL", icon: "chest" as const },
+        { name: "Docker", icon: "furnace" as const },
+        { name: "Redis", icon: "redstone" as const },
+      ],
+      outputName: "High-Concurrency Backend",
+      outputIcon: "sword" as const,
+    },
+    {
+      name: "Systems & Memory",
+      inputs: [
+        { name: "C Language", icon: "pickaxe" as const },
+        { name: "Valgrind", icon: "clock" as const },
+        { name: "GDB Debugger", icon: "compass" as const },
+        { name: "Algorithms", icon: "book" as const },
+      ],
+      outputName: "Low-Level Memory Engine",
+      outputIcon: "shield" as const,
+    },
+  ];
+
+  const currentRecipe = recipes[recipeIndex];
 
   const categories = [
     { id: "all", label: "All Items" },
@@ -44,9 +83,20 @@ export const Inventory: React.FC = () => {
     <section
       id="skills"
       aria-label="Atharva's Inventory and Skills"
-      className="min-h-screen py-20 px-4 flex flex-col items-center justify-center relative select-none"
+      className="min-h-screen py-20 px-4 flex flex-col items-center justify-center relative select-none overflow-hidden"
     >
-      <div className="w-full max-w-4xl flex flex-col items-center">
+      {/* Background Workshop Forge Image */}
+      <div
+        className="absolute inset-0 z-0 bg-cover bg-center"
+        style={{
+          backgroundImage: "url('/images/minecraft_workshop.jpg')",
+          imageRendering: "pixelated",
+        }}
+      >
+        <div className="absolute inset-0 bg-black/65 backdrop-blur-[1px]" />
+      </div>
+
+      <div className="relative z-10 w-full max-w-4xl flex flex-col items-center">
         {/* Header */}
         <div className="flex items-center gap-2 mb-2">
           <PixelIcon name="crafting-table" size={24} />
@@ -102,44 +152,72 @@ export const Inventory: React.FC = () => {
               </div>
             </div>
 
-            {/* 2x2 Crafting Grid */}
-            <div className="flex items-center gap-3">
-              <div>
-                <div className="font-minecraft text-[10px] text-[#4a4a4a] mb-1 text-center">
-                  Crafting
-                </div>
-                <div className="grid grid-cols-2 gap-1 bg-[#8b8b8b] p-1.5 border-t-2 border-l-2 border-[#373737] border-b-2 border-r-2 border-[#ffffff]">
-                  <div className="w-9 h-9 bg-[#8b8b8b] border-2 border-t-[#373737] border-l-[#373737] border-b-[#ffffff] border-r-[#ffffff] flex items-center justify-center">
-                    <PixelIcon name="sword" size={18} />
-                  </div>
-                  <div className="w-9 h-9 bg-[#8b8b8b] border-2 border-t-[#373737] border-l-[#373737] border-b-[#ffffff] border-r-[#ffffff] flex items-center justify-center">
-                    <PixelIcon name="redstone" size={18} />
-                  </div>
-                  <div className="w-9 h-9 bg-[#8b8b8b] border-2 border-t-[#373737] border-l-[#373737] border-b-[#ffffff] border-r-[#ffffff] flex items-center justify-center">
-                    <PixelIcon name="beacon" size={18} />
-                  </div>
-                  <div className="w-9 h-9 bg-[#8b8b8b] border-2 border-t-[#373737] border-l-[#373737] border-b-[#ffffff] border-r-[#ffffff] flex items-center justify-center">
-                    <PixelIcon name="gold-apple" size={18} />
-                  </div>
-                </div>
+            {/* 2x2 Crafting Grid with Interactive Recipes */}
+            <div className="flex flex-col sm:flex-row items-center gap-4">
+              {/* Recipe Selector Buttons */}
+              <div className="flex flex-col gap-1">
+                <span className="font-minecraft text-[9px] text-[#4a4a4a] text-center sm:text-left">
+                  Recipes:
+                </span>
+                {[
+                  { name: "Next.js 15", result: "beacon", desc: "React 19 + TypeScript" },
+                  { name: "FastAPI Engine", result: "sword", desc: "Python + PostgreSQL" },
+                  { name: "Systems C", result: "shield", desc: "C + Valgrind + GDB" },
+                ].map((rec, i) => (
+                  <button
+                    key={rec.name}
+                    type="button"
+                    onClick={() => {
+                      playPop();
+                      setRecipeIndex(i);
+                    }}
+                    className={`px-2 py-0.5 text-left font-minecraft text-[9px] cursor-pointer transition-colors border ${
+                      recipeIndex === i
+                        ? "bg-[#3b82f6] text-white border-white shadow-xs"
+                        : "bg-[#a8a8a8] hover:bg-[#b8b8b8] text-[#222222] border-[#777777]"
+                    }`}
+                  >
+                    {rec.name}
+                  </button>
+                ))}
               </div>
 
-              {/* Arrow */}
-              <div className="font-minecraft text-lg text-[#4a4a4a] pt-4">
-                ▶
-              </div>
-
-              {/* Result Slot */}
-              <div>
-                <div className="font-minecraft text-[10px] text-[#4a4a4a] mb-1 text-center">
-                  Result
+              {/* 2x2 Grid */}
+              <div className="flex items-center gap-3">
+                <div>
+                  <div className="font-minecraft text-[10px] text-[#4a4a4a] mb-1 text-center">
+                    Crafting 2x2
+                  </div>
+                  <div className="grid grid-cols-2 gap-1 bg-[#8b8b8b] p-1.5 border-t-2 border-l-2 border-[#373737] border-b-2 border-r-2 border-[#ffffff]">
+                    {currentRecipe.inputs.map((item, idx) => (
+                      <div
+                        key={`craft-in-${idx}`}
+                        className="w-9 h-9 bg-[#8b8b8b] border-2 border-t-[#373737] border-l-[#373737] border-b-[#ffffff] border-r-[#ffffff] flex items-center justify-center group relative cursor-pointer"
+                        title={item.name}
+                      >
+                        <PixelIcon name={item.icon} size={18} />
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                <div className="w-12 h-12 bg-[#8b8b8b] p-1 border-t-2 border-l-2 border-[#373737] border-b-2 border-r-2 border-[#ffffff] flex items-center justify-center">
-                  <div className="relative group">
-                    <PixelIcon name="beacon" size={28} className="animate-pulse" />
-                    <span className="absolute bottom-0 right-0 font-minecraft text-[9px] text-[#ffff55]" style={{ textShadow: "1px 1px 0 #000" }}>
-                      ★
-                    </span>
+
+                {/* Arrow */}
+                <div className="font-minecraft text-lg text-[#4a4a4a] pt-4">
+                  ▶
+                </div>
+
+                {/* Result Slot */}
+                <div>
+                  <div className="font-minecraft text-[10px] text-[#4a4a4a] mb-1 text-center">
+                    Result
+                  </div>
+                  <div className="w-13 h-13 bg-[#8b8b8b] p-1 border-t-2 border-l-2 border-[#373737] border-b-2 border-r-2 border-[#ffffff] flex items-center justify-center mc-enchanted">
+                    <div className="relative group cursor-pointer" title={currentRecipe.outputName}>
+                      <PixelIcon name={currentRecipe.outputIcon} size={28} className="animate-pulse" />
+                      <span className="absolute -bottom-1 -right-1 font-minecraft text-[9px] text-[#ffff55]" style={{ textShadow: "1px 1px 0 #000" }}>
+                        ★
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -148,8 +226,11 @@ export const Inventory: React.FC = () => {
 
           {/* Main 9x3 Inventory Grid */}
           <div className="mb-2">
-            <div className="font-minecraft text-xs text-[#4a4a4a] mb-2 font-bold">
-              Inventory
+            <div className="font-minecraft text-xs text-[#4a4a4a] mb-2 font-bold flex items-center justify-between">
+              <span>Inventory (27 Slots)</span>
+              <span className="text-[10px] text-[#555555] font-normal">
+                Purple shimmer = Enchanted Masteries
+              </span>
             </div>
 
             <div className="grid grid-cols-9 gap-1 sm:gap-1.5 p-2 bg-[#8b8b8b] border-t-2 border-l-2 border-[#373737] border-b-2 border-r-2 border-[#ffffff]">
@@ -174,6 +255,7 @@ export const Inventory: React.FC = () => {
                             ? "bg-[#8b8b8b] hover:bg-[#a0a0a0] cursor-pointer"
                             : "bg-[#8b8b8b]/60 cursor-default"
                         }
+                        ${skill && skill.level >= 88 ? "mc-enchanted" : ""}
                         ${
                           isSelected
                             ? "ring-2 ring-[#ffff55] ring-offset-1 ring-offset-[#8b8b8b]"

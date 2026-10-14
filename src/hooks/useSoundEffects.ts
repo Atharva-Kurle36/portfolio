@@ -190,6 +190,62 @@ export function useSoundEffects() {
     }
   }, [isMuted, getAudioContext]);
 
+  // 6. Dimension Warp: Nether / End Portal travel whoosh
+  const playWarp = useCallback(() => {
+    if (isMuted) return;
+    const ctx = getAudioContext();
+    if (!ctx) return;
+
+    try {
+      const now = ctx.currentTime;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+
+      osc.type = "sawtooth";
+      osc.frequency.setValueAtTime(140, now);
+      osc.frequency.exponentialRampToValueAtTime(480, now + 0.2);
+      osc.frequency.exponentialRampToValueAtTime(80, now + 0.4);
+
+      gain.gain.setValueAtTime(0.01, now);
+      gain.gain.linearRampToValueAtTime(0.18, now + 0.15);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.45);
+
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+
+      osc.start(now);
+      osc.stop(now + 0.45);
+    } catch {
+      // ignore
+    }
+  }, [isMuted, getAudioContext]);
+
+  // 7. Achievement Bell Ding
+  const playDing = useCallback(() => {
+    if (isMuted) return;
+    const ctx = getAudioContext();
+    if (!ctx) return;
+
+    try {
+      const now = ctx.currentTime;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(1760, now); // A6
+      gain.gain.setValueAtTime(0.2, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+
+      osc.start(now);
+      osc.stop(now + 0.35);
+    } catch {
+      // ignore
+    }
+  }, [isMuted, getAudioContext]);
+
   return {
     isMuted,
     toggleMute,
@@ -198,5 +254,7 @@ export function useSoundEffects() {
     playLevelUp,
     playChestOpen,
     playTotem,
+    playWarp,
+    playDing,
   };
 }
