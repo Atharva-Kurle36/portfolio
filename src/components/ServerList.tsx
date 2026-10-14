@@ -48,7 +48,7 @@ export const ServerList: React.FC = () => {
     // Open mailto fallback
     const subject = encodeURIComponent(`Portfolio Message from ${senderName || "Visitor"}`);
     const body = encodeURIComponent(`${message}\n\nFrom: ${senderName} (${senderEmail})`);
-    window.location.href = `mailto:atharvakurle.dev@gmail.com?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:kurleatharva2007@gmail.com?subject=${subject}&body=${body}`;
 
     setTimeout(() => {
       setFormSent(false);

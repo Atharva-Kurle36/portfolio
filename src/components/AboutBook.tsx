@@ -79,7 +79,7 @@ export const AboutBook: React.FC = () => {
                   <span>Late Night Grind</span>
                 </div>
                 <div className="text-[#38bdf8]">
-                  Mumbai Server
+                  VSIT & Univ. of Greater Manchester
                 </div>
               </div>
 

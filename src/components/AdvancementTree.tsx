@@ -12,17 +12,17 @@ interface NodePosition {
 }
 
 const nodePositions: Record<string, NodePosition> = {
-  "root-spawn": { col: 0, row: 0 },
-  "high-school": { col: 1, row: 0 },
-  "university-admit": { col: 2, row: 0 },
+  "high-school": { col: 0, row: 0 },
+  "polytechnic": { col: 1, row: 0 },
+  "university": { col: 2, row: 0 },
   "systems-craft": { col: 3, row: 0 },
   "future-frontiers": { col: 4, row: 0 },
-  "hackathon-quest": { col: 2, row: 1 },
-  "fullstack-mastery": { col: 3, row: 1 },
+  "internship": { col: 2, row: 1 },
+  "hackathons": { col: 3, row: 1 },
 };
 
 export const AdvancementTree: React.FC = () => {
-  const [selectedNode, setSelectedNode] = useState<TimelineNode>(timelineData[4]); // Diamonds by default
+  const [selectedNode, setSelectedNode] = useState<TimelineNode>(timelineData[2]); // Dual degree by default
   const [activeTab, setActiveTab] = useState<string>("all");
   const [toast, setToast] = useState<{ node: TimelineNode; show: boolean } | null>(null);
   const { playPop, playClick, playLevelUp, playDing } = useSoundEffects();
