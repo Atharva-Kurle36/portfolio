@@ -1,0 +1,335 @@
+"use client";
+
+import React, { useState } from "react";
+import { MinecraftButton } from "@/components/ui/MinecraftButton";
+import { PixelIcon } from "@/components/ui/PixelIcon";
+import { useSoundEffects } from "@/hooks/useSoundEffects";
+
+interface TitleScreenProps {
+  onNavigate: (sectionId: string) => void;
+  onTriggerTotem?: () => void;
+}
+
+export const TitleScreen: React.FC<TitleScreenProps> = ({
+  onNavigate,
+  onTriggerTotem,
+}) => {
+  const [splashIndex, setSplashIndex] = useState(0);
+  const [showOptionsModal, setShowOptionsModal] = useState(false);
+  const [showQuitModal, setShowQuitModal] = useState(false);
+  const { playPop, playClick, isMuted, toggleMute } = useSoundEffects();
+
+  const splashes = [
+    "It came from space.",
+    "It came from Mumbai.",
+    "Also try C++ & Linux!",
+    "Crafting clean code!",
+    "Now with 100% more chai!",
+    "100% bug-free (tested on localhost)!",
+    "Press [1-9] on your keyboard!",
+    "Never dig straight down!",
+    "Efficiency V on algorithms!",
+  ];
+
+  const handleSplashClick = () => {
+    playPop();
+    setSplashIndex((prev) => (prev + 1) % splashes.length);
+  };
+
+  const handleOptionsClick = () => {
+    playClick();
+    setShowOptionsModal(true);
+  };
+
+  const handleQuitClick = () => {
+    playClick();
+    setShowQuitModal(true);
+  };
+
+  return (
+    <section
+      id="hero"
+      aria-label="Title Screen Hero"
+      className="relative min-h-screen w-full flex flex-col justify-between items-center select-none overflow-hidden bg-black"
+    >
+      {/* Background Panorama matching the Reference Image */}
+      <div
+        className="absolute inset-0 z-0 bg-cover bg-center transition-transform duration-1000 scale-100"
+        style={{
+          backgroundImage: "url('/images/minecraft_sunset_panorama.jpg')",
+          imageRendering: "pixelated",
+        }}
+      >
+        {/* Subtle vignette and sunset warmth glow */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30 pointer-events-none" />
+      </div>
+
+      {/* Top Spacer */}
+      <div className="w-full pt-8 sm:pt-12 z-10 flex flex-col items-center">
+        {/* 3D Minecraft Logo matching Reference Image */}
+        <div className="relative inline-block mt-4 sm:mt-8">
+          {/* Main 3D Title */}
+          <div className="relative">
+            <h1
+              className="font-minecraft text-4xl sm:text-6xl md:text-7xl font-black tracking-widest text-[#d8d8d8] uppercase"
+              style={{
+                textShadow: `
+                  0px 1px 0px #9e9e9e,
+                  0px 2px 0px #828282,
+                  0px 3px 0px #6e6e6e,
+                  0px 4px 0px #595959,
+                  0px 5px 0px #424242,
+                  0px 6px 0px #2e2e2e,
+                  0px 7px 0px #1a1a1a,
+                  0px 8px 0px #000000,
+                  -2px -2px 0 #ffffff,
+                  2px -2px 0 #ffffff,
+                  -2px 2px 0 #000000,
+                  2px 2px 0 #000000,
+                  0 10px 15px rgba(0, 0, 0, 0.8)
+                `,
+                letterSpacing: "0.15em",
+              }}
+            >
+              ATHARVA
+            </h1>
+
+            {/* Black Sub-Banner "STUDENT EDITION" (like "JAVA EDITION" in reference image) */}
+            <div className="flex justify-center -mt-1 sm:-mt-2">
+              <div
+                className="bg-[#0b0c0e] px-4 py-0.5 border-2 border-[#3a3b42] shadow-[0_4px_10px_rgba(0,0,0,0.8)] inline-block transform -skew-x-6"
+                style={{
+                  boxShadow: "0 0 0 1px #000, inset 0 0 0 1px #222",
+                }}
+              >
+                <span
+                  className="font-minecraft text-xs sm:text-base font-bold text-white tracking-[0.25em] uppercase drop-shadow-[0_2px_0_#000]"
+                  style={{ textShadow: "1px 1px 0 #000" }}
+                >
+                  STUDENT EDITION
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Yellow Bouncing Splash Text at the Bottom-Right of the Logo */}
+          <button
+            type="button"
+            onClick={handleSplashClick}
+            aria-label="Change splash text"
+            title="Click to cycle splash text!"
+            className="absolute -bottom-8 -right-6 sm:-right-16 md:-right-24 transform -rotate-15 hover:scale-110 active:scale-95 transition-transform cursor-pointer group z-20"
+          >
+            <span
+              className="inline-block font-minecraft text-xs sm:text-sm md:text-base text-[#ffff55] font-bold tracking-wide animate-bounce px-2 py-0.5"
+              style={{
+                textShadow: "2px 2px 0 #3f3f00, 3px 3px 0 #1f1f00",
+              }}
+            >
+              {splashes[splashIndex]}
+            </span>
+          </button>
+        </div>
+      </div>
+
+      {/* Main Minecraft Menu Buttons matching Reference Image */}
+      <div className="z-10 w-full max-w-[420px] px-4 flex flex-col gap-2.5 my-auto pb-8">
+        {/* Button 1: Singleplayer */}
+        <MinecraftButton
+          fullWidth
+          size="lg"
+          variant="default"
+          onClick={() => onNavigate("projects")}
+        >
+          Singleplayer
+        </MinecraftButton>
+
+        {/* Button 2: Multiplayer */}
+        <MinecraftButton
+          fullWidth
+          size="lg"
+          variant="default"
+          onClick={() => onNavigate("contact")}
+        >
+          Multiplayer
+        </MinecraftButton>
+
+        {/* Button 3: Minecraft Realms (Atharva's Realms / About & Journal) */}
+        <MinecraftButton
+          fullWidth
+          size="lg"
+          variant="default"
+          onClick={() => onNavigate("about")}
+        >
+          Atharva&apos;s Realms
+        </MinecraftButton>
+
+        {/* Split Row matching the Reference Image: [Globe] [Options...] [Quit Game] [Accessibility] */}
+        <div className="flex items-center gap-2">
+          {/* Globe Button (Square) */}
+          <button
+            type="button"
+            onClick={() => onNavigate("skills")}
+            aria-label="Language & Skills"
+            title="Inventory & Skills"
+            className="w-12 h-11 bg-[#7c7c7c] hover:bg-[#8e8e8e] border-t-2 border-l-2 border-[#ffffff] border-b-2 border-r-2 border-[#2b2b2b] active:border-t-[#2b2b2b] active:border-l-[#2b2b2b] active:border-b-[#ffffff] active:border-r-[#ffffff] flex items-center justify-center cursor-pointer shadow-[inset_0_0_0_1px_rgba(0,0,0,0.5)] shrink-0"
+          >
+            <PixelIcon name="globe" size={20} />
+          </button>
+
+          {/* Options... Button */}
+          <MinecraftButton
+            size="md"
+            className="flex-1"
+            onClick={handleOptionsClick}
+          >
+            Options...
+          </MinecraftButton>
+
+          {/* Quit Game Button */}
+          <MinecraftButton
+            size="md"
+            className="flex-1"
+            onClick={handleQuitClick}
+          >
+            Quit Game
+          </MinecraftButton>
+
+          {/* Accessibility / Player Totem Button (Square) */}
+          <button
+            type="button"
+            onClick={() => {
+              playClick();
+              if (onTriggerTotem) {
+                onTriggerTotem();
+              } else {
+                onNavigate("timeline");
+              }
+            }}
+            aria-label="Accessibility & Totem"
+            title="Resurrection Easter Egg & Advancements"
+            className="w-12 h-11 bg-[#7c7c7c] hover:bg-[#8e8e8e] border-t-2 border-l-2 border-[#ffffff] border-b-2 border-r-2 border-[#2b2b2b] active:border-t-[#2b2b2b] active:border-l-[#2b2b2b] active:border-b-[#ffffff] active:border-r-[#ffffff] flex items-center justify-center cursor-pointer shadow-[inset_0_0_0_1px_rgba(0,0,0,0.5)] shrink-0"
+          >
+            <PixelIcon name="accessibility" size={20} />
+          </button>
+        </div>
+      </div>
+
+      {/* Bottom Corner Labels matching Reference Image: "Minecraft 1.20.1" and "Copyright Mojang AB..." */}
+      <div className="z-10 w-full px-3 py-2 flex flex-col sm:flex-row justify-between items-center text-[10px] sm:text-xs font-minecraft text-white select-none">
+        <div
+          className="tracking-wider"
+          style={{ textShadow: "1px 1px 0 #000, 2px 2px 0 #000" }}
+        >
+          Atharva 1.0 (SE Student)
+        </div>
+        <div
+          className="tracking-wider text-right"
+          style={{ textShadow: "1px 1px 0 #000, 2px 2px 0 #000" }}
+        >
+          Crafted by Atharva Kurle • Mumbai, India
+        </div>
+      </div>
+
+      {/* Options Dialog Modal */}
+      {showOptionsModal && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-xs"
+          onClick={() => setShowOptionsModal(false)}
+        >
+          <div
+            className="w-full max-w-md bg-[#c6c6c6] p-6 border-4 border-[#ffffff] border-b-4 border-r-4 border-b-[#555555] border-r-[#555555] shadow-2xl relative text-[#222222]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="font-minecraft text-base font-bold text-center mb-6 text-[#1f2937]">
+              Game Options
+            </div>
+
+            <div className="space-y-3 font-minecraft text-xs">
+              <div className="flex justify-between items-center p-2 bg-[#8b8b8b] border-2 border-t-[#373737] border-l-[#373737] border-b-[#ffffff] border-r-[#ffffff] text-white">
+                <span>Sound FX:</span>
+                <button
+                  type="button"
+                  onClick={toggleMute}
+                  className="px-3 py-1 bg-[#555555] border border-white hover:bg-[#666666] cursor-pointer"
+                >
+                  {isMuted ? "OFF" : "ON (100%)"}
+                </button>
+              </div>
+
+              <div className="flex justify-between items-center p-2 bg-[#8b8b8b] border-2 border-t-[#373737] border-l-[#373737] border-b-[#ffffff] border-r-[#ffffff] text-white">
+                <span>Difficulty:</span>
+                <span className="text-[#f87171] font-bold">Hardcore</span>
+              </div>
+
+              <div className="flex justify-between items-center p-2 bg-[#8b8b8b] border-2 border-t-[#373737] border-l-[#373737] border-b-[#ffffff] border-r-[#ffffff] text-white">
+                <span>Location:</span>
+                <span>Mumbai, IN</span>
+              </div>
+
+              <div className="flex justify-between items-center p-2 bg-[#8b8b8b] border-2 border-t-[#373737] border-l-[#373737] border-b-[#ffffff] border-r-[#ffffff] text-white">
+                <span>Major:</span>
+                <span className="text-[#38bdf8]">Software Engineering</span>
+              </div>
+            </div>
+
+            <div className="mt-6 flex justify-center">
+              <MinecraftButton
+                size="md"
+                variant="default"
+                onClick={() => setShowOptionsModal(false)}
+              >
+                Done
+              </MinecraftButton>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Quit Game Confirmation Modal */}
+      {showQuitModal && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-xs"
+          onClick={() => setShowQuitModal(false)}
+        >
+          <div
+            className="w-full max-w-md bg-[#c6c6c6] p-6 border-4 border-[#ffffff] border-b-4 border-r-4 border-b-[#555555] border-r-[#555555] shadow-2xl relative text-[#222222] text-center"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="font-minecraft text-sm font-bold text-[#1f2937] mb-3">
+              Leaving Already?
+            </div>
+            <p className="font-sans text-xs text-[#374151] mb-6">
+              You can never really quit crafting clean software! Would you like to explore Atharva&apos;s worlds or connect on GitHub instead?
+            </p>
+
+            <div className="flex justify-center gap-3">
+              <MinecraftButton
+                size="sm"
+                variant="primary"
+                onClick={() => {
+                  setShowQuitModal(false);
+                  onNavigate("projects");
+                }}
+              >
+                View Worlds
+              </MinecraftButton>
+
+              <MinecraftButton
+                size="sm"
+                variant="dark"
+                onClick={() => setShowQuitModal(false)}
+              >
+                Stay Here
+              </MinecraftButton>
+            </div>
+          </div>
+        </div>
+      )}
+    </section>
+  );
+};
