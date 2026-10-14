@@ -22,7 +22,30 @@ interface PixelIconProps {
     | "leggings-silhouette"
     | "boots-silhouette"
     | "shield-silhouette"
-    | "recipe-book";
+    | "recipe-book"
+    | "banner"
+    | "spyglass"
+    | "trident"
+    | "bow"
+    | "crossbow"
+    | "arrow"
+    | "target"
+    | "barrel"
+    | "pumpkin"
+    | "honey"
+    | "lightning-rod"
+    | "water-bucket"
+    | "brush"
+    | "pottery"
+    | "sculk"
+    | "boots"
+    | "diamond-boots"
+    | "bed"
+    | "jukebox"
+    | "smithing-template"
+    | "respawn-anchor"
+    | "iron-sword"
+    | "diamond-sword";
   className?: string;
   size?: number;
 }
@@ -46,7 +69,33 @@ export const PixelIcon: React.FC<PixelIconProps> = ({
   };
 
   switch (name) {
+    case "iron-sword":
+      return (
+        <svg {...commonProps}>
+          {/* Iron Blade */}
+          <rect x="13" y="1" width="2" height="2" fill="#f8fafc" />
+          <rect x="11" y="3" width="2" height="2" fill="#e2e8f0" />
+          <rect x="9" y="5" width="2" height="2" fill="#cbd5e1" />
+          <rect x="7" y="7" width="2" height="2" fill="#94a3b8" />
+          <rect x="12" y="2" width="2" height="2" fill="#ffffff" />
+          <rect x="10" y="4" width="2" height="2" fill="#e2e8f0" />
+          <rect x="8" y="6" width="2" height="2" fill="#94a3b8" />
+          {/* Guard */}
+          <rect x="5" y="7" width="2" height="2" fill="#855325" />
+          <rect x="7" y="9" width="2" height="2" fill="#855325" />
+          <rect x="6" y="8" width="2" height="2" fill="#64748b" />
+          <rect x="4" y="8" width="2" height="2" fill="#64748b" />
+          <rect x="8" y="10" width="2" height="2" fill="#64748b" />
+          {/* Handle */}
+          <rect x="4" y="10" width="2" height="2" fill="#663300" />
+          <rect x="3" y="11" width="2" height="2" fill="#663300" />
+          {/* Pommel */}
+          <rect x="1" y="13" width="2" height="2" fill="#855325" />
+        </svg>
+      );
+
     case "sword":
+    case "diamond-sword":
       return (
         <svg {...commonProps}>
           {/* Blade */}
@@ -668,6 +717,252 @@ export const PixelIcon: React.FC<PixelIconProps> = ({
           {/* Corner gold trim */}
           <rect x="2" y="2" width="2" height="2" fill="#eab308" />
           <rect x="12" y="2" width="2" height="2" fill="#eab308" />
+        </svg>
+      );
+
+    case "banner":
+      return (
+        <svg {...commonProps}>
+          <rect x="7" y="1" width="2" height="14" fill="#5c3818" />
+          <rect x="3" y="1" width="10" height="1" fill="#855325" />
+          <rect x="4" y="2" width="8" height="12" fill="#64748b" />
+          <rect x="5" y="3" width="6" height="10" fill="#94a3b8" />
+          <rect x="7" y="3" width="2" height="8" fill="#cbd5e1" />
+        </svg>
+      );
+
+    case "spyglass":
+      return (
+        <svg {...commonProps}>
+          <rect x="2" y="12" width="3" height="3" fill="#9a3412" />
+          <rect x="4" y="10" width="3" height="3" fill="#ea580c" />
+          <rect x="6" y="8" width="3" height="3" fill="#f59e0b" />
+          <rect x="8" y="6" width="3" height="3" fill="#fbbf24" />
+          <rect x="10" y="4" width="3" height="3" fill="#f59e0b" />
+          <rect x="12" y="2" width="3" height="3" fill="#38bdf8" />
+          <rect x="13" y="1" width="2" height="2" fill="#ffffff" />
+        </svg>
+      );
+
+    case "trident":
+      return (
+        <svg {...commonProps}>
+          <rect x="2" y="12" width="2" height="3" fill="#0f766e" />
+          <rect x="4" y="10" width="2" height="3" fill="#0f766e" />
+          <rect x="6" y="8" width="2" height="3" fill="#14b8a6" />
+          <rect x="8" y="6" width="2" height="3" fill="#14b8a6" />
+          <rect x="11" y="2" width="2" height="4" fill="#2dd4bf" />
+          <rect x="8" y="4" width="2" height="3" fill="#2dd4bf" />
+          <rect x="12" y="5" width="2" height="3" fill="#2dd4bf" />
+          <rect x="12" y="1" width="1" height="2" fill="#ccfbf1" />
+        </svg>
+      );
+
+    case "bow":
+      return (
+        <svg {...commonProps}>
+          <rect x="3" y="2" width="2" height="3" fill="#855325" />
+          <rect x="2" y="4" width="2" height="8" fill="#603813" />
+          <rect x="3" y="11" width="2" height="3" fill="#855325" />
+          <rect x="5" y="2" width="1" height="12" fill="#ffffff" />
+          <rect x="6" y="7" width="2" height="2" fill="#cbd5e1" />
+        </svg>
+      );
+
+    case "crossbow":
+      return (
+        <svg {...commonProps}>
+          <rect x="7" y="4" width="2" height="10" fill="#855325" />
+          <rect x="6" y="12" width="4" height="2" fill="#5c3818" />
+          <rect x="2" y="4" width="12" height="2" fill="#94a3b8" />
+          <rect x="1" y="3" width="2" height="3" fill="#64748b" />
+          <rect x="13" y="3" width="2" height="3" fill="#64748b" />
+          <rect x="7" y="7" width="2" height="2" fill="#fbbf24" />
+          <rect x="7" y="2" width="2" height="2" fill="#475569" />
+        </svg>
+      );
+
+    case "arrow":
+      return (
+        <svg {...commonProps}>
+          <rect x="3" y="11" width="2" height="2" fill="#94a3b8" />
+          <rect x="5" y="9" width="2" height="2" fill="#855325" />
+          <rect x="7" y="7" width="2" height="2" fill="#855325" />
+          <rect x="9" y="5" width="2" height="2" fill="#855325" />
+          <rect x="11" y="3" width="3" height="3" fill="#334155" />
+          <rect x="12" y="2" width="2" height="2" fill="#64748b" />
+          <rect x="1" y="13" width="3" height="2" fill="#ffffff" />
+        </svg>
+      );
+
+    case "target":
+      return (
+        <svg {...commonProps}>
+          <rect x="2" y="2" width="12" height="12" fill="#d97706" />
+          <rect x="3" y="3" width="10" height="10" fill="#f8fafc" />
+          <rect x="5" y="5" width="6" height="6" fill="#ef4444" />
+          <rect x="6" y="6" width="4" height="4" fill="#ffffff" />
+          <rect x="7" y="7" width="2" height="2" fill="#dc2626" />
+        </svg>
+      );
+
+    case "barrel":
+      return (
+        <svg {...commonProps}>
+          <rect x="2" y="2" width="12" height="12" fill="#92400e" />
+          <rect x="2" y="4" width="12" height="2" fill="#334155" />
+          <rect x="2" y="10" width="12" height="2" fill="#334155" />
+          <rect x="5" y="2" width="1" height="12" fill="#78350f" />
+          <rect x="10" y="2" width="1" height="12" fill="#78350f" />
+        </svg>
+      );
+
+    case "pumpkin":
+      return (
+        <svg {...commonProps}>
+          <rect x="2" y="2" width="12" height="12" fill="#ea580c" />
+          <rect x="2" y="2" width="12" height="1" fill="#c2410c" />
+          <rect x="7" y="1" width="2" height="2" fill="#4d7c0f" />
+          <rect x="4" y="5" width="2" height="2" fill="#431407" />
+          <rect x="10" y="5" width="2" height="2" fill="#431407" />
+          <rect x="7" y="7" width="2" height="2" fill="#431407" />
+          <rect x="4" y="10" width="8" height="2" fill="#431407" />
+          <rect x="5" y="10" width="1" height="1" fill="#ea580c" />
+          <rect x="8" y="10" width="1" height="1" fill="#ea580c" />
+        </svg>
+      );
+
+    case "honey":
+      return (
+        <svg {...commonProps}>
+          <rect x="3" y="3" width="10" height="10" fill="#f59e0b" fillOpacity="0.9" />
+          <rect x="4" y="4" width="8" height="8" fill="#fbbf24" />
+          <rect x="5" y="5" width="4" height="4" fill="#fde047" />
+          <rect x="4" y="4" width="2" height="2" fill="#ffffff" />
+          <rect x="2" y="2" width="12" height="12" stroke="#d97706" strokeWidth="1" fill="none" />
+        </svg>
+      );
+
+    case "lightning-rod":
+      return (
+        <svg {...commonProps}>
+          <rect x="7" y="5" width="2" height="10" fill="#c27a4d" />
+          <rect x="5" y="13" width="6" height="2" fill="#9a5a35" />
+          <rect x="6" y="3" width="4" height="3" fill="#ea9261" />
+          <rect x="5" y="1" width="2" height="3" fill="#ea9261" />
+          <rect x="9" y="1" width="2" height="3" fill="#ea9261" />
+        </svg>
+      );
+
+    case "water-bucket":
+      return (
+        <svg {...commonProps}>
+          <rect x="3" y="5" width="10" height="8" fill="#94a3b8" />
+          <rect x="4" y="12" width="8" height="2" fill="#64748b" />
+          <rect x="2" y="4" width="2" height="2" fill="#64748b" />
+          <rect x="12" y="4" width="2" height="2" fill="#64748b" />
+          <rect x="5" y="5" width="6" height="5" fill="#38bdf8" />
+          <rect x="6" y="6" width="3" height="2" fill="#7dd3fc" />
+        </svg>
+      );
+
+    case "brush":
+      return (
+        <svg {...commonProps}>
+          <rect x="3" y="11" width="3" height="3" fill="#855325" />
+          <rect x="5" y="9" width="3" height="3" fill="#855325" />
+          <rect x="7" y="7" width="3" height="3" fill="#c27a4d" />
+          <rect x="9" y="3" width="4" height="4" fill="#f1f5f9" />
+          <rect x="11" y="2" width="3" height="3" fill="#f8fafc" />
+        </svg>
+      );
+
+    case "pottery":
+      return (
+        <svg {...commonProps}>
+          <rect x="4" y="2" width="8" height="2" fill="#b45309" />
+          <rect x="3" y="4" width="10" height="9" fill="#9a3412" />
+          <rect x="4" y="13" width="8" height="2" fill="#7c2d12" />
+          <rect x="6" y="6" width="4" height="4" fill="#ea580c" />
+          <rect x="7" y="7" width="2" height="2" fill="#fed7aa" />
+        </svg>
+      );
+
+    case "sculk":
+      return (
+        <svg {...commonProps}>
+          <rect x="3" y="9" width="10" height="5" fill="#042f2e" />
+          <rect x="4" y="10" width="8" height="3" fill="#0f766e" />
+          <rect x="4" y="4" width="2" height="5" fill="#14b8a6" />
+          <rect x="10" y="4" width="2" height="5" fill="#14b8a6" />
+          <rect x="3" y="3" width="3" height="2" fill="#2dd4bf" />
+          <rect x="10" y="3" width="3" height="2" fill="#2dd4bf" />
+          <rect x="7" y="6" width="2" height="3" fill="#065f46" />
+        </svg>
+      );
+
+    case "boots":
+      return (
+        <svg {...commonProps}>
+          <rect x="2" y="6" width="4" height="7" fill="#855325" />
+          <rect x="10" y="6" width="4" height="7" fill="#855325" />
+          <rect x="1" y="11" width="5" height="3" fill="#603813" />
+          <rect x="9" y="11" width="5" height="3" fill="#603813" />
+        </svg>
+      );
+
+    case "diamond-boots":
+      return (
+        <svg {...commonProps}>
+          <rect x="2" y="6" width="4" height="7" fill="#00ffff" />
+          <rect x="10" y="6" width="4" height="7" fill="#00ffff" />
+          <rect x="1" y="11" width="5" height="3" fill="#008080" />
+          <rect x="9" y="11" width="5" height="3" fill="#008080" />
+          <rect x="3" y="7" width="2" height="2" fill="#ffffff" />
+          <rect x="11" y="7" width="2" height="2" fill="#ffffff" />
+        </svg>
+      );
+
+    case "bed":
+      return (
+        <svg {...commonProps}>
+          <rect x="1" y="6" width="14" height="5" fill="#dc2626" />
+          <rect x="2" y="6" width="4" height="4" fill="#f8fafc" />
+          <rect x="1" y="11" width="14" height="2" fill="#855325" />
+          <rect x="1" y="13" width="2" height="2" fill="#5c3818" />
+          <rect x="13" y="13" width="2" height="2" fill="#5c3818" />
+        </svg>
+      );
+
+    case "jukebox":
+      return (
+        <svg {...commonProps}>
+          <rect x="2" y="2" width="12" height="12" fill="#855325" />
+          <rect x="3" y="3" width="10" height="10" fill="#603813" />
+          <rect x="6" y="6" width="4" height="4" fill="#00ffff" />
+          <rect x="7" y="7" width="2" height="2" fill="#0f172a" />
+        </svg>
+      );
+
+    case "smithing-template":
+      return (
+        <svg {...commonProps}>
+          <rect x="3" y="2" width="10" height="12" fill="#1e293b" />
+          <rect x="4" y="3" width="8" height="10" fill="#334155" />
+          <rect x="6" y="5" width="4" height="2" fill="#38bdf8" />
+          <rect x="7" y="8" width="2" height="3" fill="#38bdf8" />
+          <rect x="5" y="9" width="2" height="2" fill="#0284c7" />
+        </svg>
+      );
+
+    case "respawn-anchor":
+      return (
+        <svg {...commonProps}>
+          <rect x="2" y="2" width="12" height="12" fill="#0f0717" />
+          <rect x="3" y="3" width="10" height="10" fill="#2e1065" />
+          <rect x="5" y="5" width="6" height="6" fill="#7c3aed" />
+          <rect x="6" y="6" width="4" height="4" fill="#c084fc" />
+          <rect x="7" y="7" width="2" height="2" fill="#fdf4ff" />
         </svg>
       );
 

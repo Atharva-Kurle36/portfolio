@@ -143,7 +143,7 @@ export const TitleScreen: React.FC<TitleScreenProps> = ({
           fullWidth
           size="lg"
           variant="primary"
-          onClick={() => onEnter("about")}
+          onClick={() => onEnter("hub")}
           className="shadow-[0_0_12px_rgba(34,197,94,0.6)]"
         >
           <span className="flex items-center justify-center gap-2">

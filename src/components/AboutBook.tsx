@@ -32,18 +32,10 @@ export const AboutBook: React.FC = () => {
     <section
       id="about"
       aria-label="About Atharva Kurle"
-      className="min-h-screen py-16 px-4 flex flex-col items-center justify-center relative select-none overflow-hidden"
+      className="min-h-screen py-16 px-4 flex flex-col items-center justify-center relative select-none overflow-hidden bg-mc-oak-planks-pattern"
     >
-      {/* Ambient Room Backdrop */}
-      <div
-        className="absolute inset-0 z-0 bg-cover bg-center opacity-30 filter blur-xs"
-        style={{
-          backgroundImage: "url('/images/about_cozy_coder.jpg')",
-          imageRendering: "pixelated",
-        }}
-      >
-        <div className="absolute inset-0 bg-black/75" />
-      </div>
+      {/* Ambient Vignette & Depth Overlay */}
+      <div className="absolute inset-0 z-0 bg-radial from-black/40 via-black/60 to-black/80 pointer-events-none shadow-[inset_0_0_80px_rgba(0,0,0,0.85)]" />
 
       <div className="relative z-10 w-full max-w-6xl flex flex-col items-center">
         {/* Section Header */}

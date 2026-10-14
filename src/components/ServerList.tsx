@@ -63,18 +63,10 @@ export const ServerList: React.FC = () => {
     <section
       id="contact"
       aria-label="Multiplayer Server List and Contact"
-      className="min-h-screen py-20 px-4 flex flex-col items-center justify-center relative select-none overflow-hidden"
+      className="min-h-screen py-20 px-4 flex flex-col items-center justify-center relative select-none overflow-hidden bg-mc-deepslate-bricks-pattern"
     >
-      {/* Background Portal Image */}
-      <div
-        className="absolute inset-0 z-0 bg-cover bg-center"
-        style={{
-          backgroundImage: "url('/images/minecraft_portal.jpg')",
-          imageRendering: "pixelated",
-        }}
-      >
-        <div className="absolute inset-0 bg-black/65 backdrop-blur-[1px]" />
-      </div>
+      {/* Ambient Multiplayer Lobby Vignette */}
+      <div className="absolute inset-0 z-0 bg-black/55 pointer-events-none shadow-[inset_0_40px_60px_rgba(0,0,0,0.85),inset_0_-40px_60px_rgba(0,0,0,0.85)]" />
 
       <div className="relative z-10 w-full max-w-4xl flex flex-col items-center">
         {/* Header */}

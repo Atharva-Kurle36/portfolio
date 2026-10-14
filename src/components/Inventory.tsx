@@ -208,18 +208,10 @@ export const Inventory: React.FC = () => {
     <section
       id="skills"
       aria-label="Atharva's Inventory and Skills"
-      className="min-h-screen py-16 px-3 sm:px-6 flex flex-col items-center justify-center relative select-none overflow-hidden"
+      className="min-h-screen py-16 px-3 sm:px-6 flex flex-col items-center justify-center relative select-none overflow-hidden bg-mc-stone-bricks-pattern"
     >
-      {/* Background Workshop Forge Image */}
-      <div
-        className="absolute inset-0 z-0 bg-cover bg-center"
-        style={{
-          backgroundImage: "url('/images/minecraft_workshop.jpg')",
-          imageRendering: "pixelated",
-        }}
-      >
-        <div className="absolute inset-0 bg-black/70 backdrop-blur-[1px]" />
-      </div>
+      {/* Ambient Forge Vignette Overlay */}
+      <div className="absolute inset-0 z-0 bg-radial from-black/40 via-black/65 to-black/85 pointer-events-none shadow-[inset_0_0_80px_rgba(0,0,0,0.9)]" />
 
       <div className="relative z-10 w-full max-w-4xl flex flex-col items-center">
         {/* Section Header */}

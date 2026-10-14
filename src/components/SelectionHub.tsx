@@ -119,18 +119,10 @@ export const SelectionHub: React.FC<SelectionHubProps> = ({
   return (
     <section
       aria-label="Selection Hub"
-      className="min-h-screen py-16 px-4 flex flex-col items-center justify-center relative select-none overflow-hidden"
+      className="min-h-screen py-16 px-4 flex flex-col items-center justify-center relative select-none overflow-hidden bg-mc-crying-obsidian-pattern"
     >
-      {/* Background Portal Image */}
-      <div
-        className="absolute inset-0 z-0 bg-cover bg-center"
-        style={{
-          backgroundImage: "url('/images/minecraft_portal.jpg')",
-          imageRendering: "pixelated",
-        }}
-      >
-        <div className="absolute inset-0 bg-black/75 backdrop-blur-[2px]" />
-      </div>
+      {/* Ambient Void Glow & Vignette */}
+      <div className="absolute inset-0 z-0 bg-radial from-purple-950/30 via-black/60 to-black/85 pointer-events-none shadow-[inset_0_0_90px_rgba(0,0,0,0.9)]" />
 
       <div className="relative z-10 w-full max-w-5xl flex flex-col items-center">
         {/* Player Status HUD Bar */}
