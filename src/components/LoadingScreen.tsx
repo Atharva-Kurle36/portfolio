@@ -1,24 +1,37 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useSyncExternalStore } from "react";
 import { useSoundEffects } from "@/hooks/useSoundEffects";
 
 interface LoadingScreenProps {
   onComplete?: () => void;
 }
 
+const emptySubscribe = () => () => {};
+
 export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
+  const isClient = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  );
+
+  const alreadySeen = useSyncExternalStore(
+    emptySubscribe,
+    () => {
+      try {
+        return !!sessionStorage.getItem("mc_loaded_once");
+      } catch {
+        return false;
+      }
+    },
+    () => false
+  );
+
   const [progress, setProgress] = useState(0);
   const [phaseText, setPhaseText] = useState("Generating chunks...");
   const [isFading, setIsFading] = useState(false);
-  const [isVisible, setIsVisible] = useState(() => {
-    if (typeof window === "undefined") return true;
-    try {
-      return !sessionStorage.getItem("mc_loaded_once");
-    } catch {
-      return true;
-    }
-  });
+  const [isDismissed, setIsDismissed] = useState(false);
   const { playLevelUp } = useSoundEffects();
 
   const tips = [
@@ -30,8 +43,7 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
   ];
 
   useEffect(() => {
-    if (!isVisible) {
-      onComplete?.();
+    if (!isClient || alreadySeen || isDismissed) {
       return;
     }
 
@@ -57,7 +69,7 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
     }, 120);
 
     return () => clearInterval(interval);
-  }, [isVisible, onComplete]);
+  }, [isClient, alreadySeen, isDismissed]);
 
   useEffect(() => {
     if (progress >= 100) {
@@ -71,7 +83,7 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
       const timer = setTimeout(() => {
         setIsFading(true);
         setTimeout(() => {
-          setIsVisible(false);
+          setIsDismissed(true);
           onComplete?.();
         }, 500);
       }, 350);
@@ -83,13 +95,13 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete }) => {
   const handleSkip = () => {
     setIsFading(true);
     setTimeout(() => {
-      setIsVisible(false);
+      setIsDismissed(true);
       sessionStorage.setItem("mc_loaded_once", "true");
       onComplete?.();
     }, 200);
   };
 
-  if (!isVisible) return null;
+  if (!isClient || alreadySeen || isDismissed) return null;
 
   return (
     <div
