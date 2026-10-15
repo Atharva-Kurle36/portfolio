@@ -107,7 +107,7 @@ export const InteractiveSteve: React.FC<InteractiveSteveProps> = ({ className = 
             transform: `rotateY(${headYaw}deg) rotateX(${headPitch}deg)`,
           }}
         >
-          {/* Head Front */}
+          {/* Head Front - Diamond Helmet */}
           <div
             className="absolute inset-0"
             style={{
@@ -116,36 +116,32 @@ export const InteractiveSteve: React.FC<InteractiveSteveProps> = ({ className = 
             }}
           >
             <svg viewBox="0 0 8 8" className="w-full h-full" style={{ shapeRendering: "crispEdges" }}>
-              {/* Hair */}
-              <rect x="0" y="0" width="8" height="2" fill="#4a2c11" />
-              <rect x="0" y="2" width="1" height="2" fill="#4a2c11" />
-              <rect x="7" y="2" width="1" height="2" fill="#4a2c11" />
-              <rect x="1" y="2" width="6" height="2" fill="#c68863" />
+              {/* Diamond Helmet Forehead */}
+              <rect x="0" y="0" width="8" height="3" fill="#55ffff" />
+              <rect x="1" y="0" width="6" height="1" fill="#ffffff" />
+              <rect x="0" y="3" width="8" height="1" fill="#2dd4bf" />
+              {/* Helmet Cheek Guards & Face Opening */}
+              <rect x="0" y="4" width="1" height="3" fill="#55ffff" />
+              <rect x="7" y="4" width="1" height="3" fill="#55ffff" />
               {/* Eyes */}
-              <rect x="0" y="4" width="1" height="1" fill="#c68863" />
               <rect x="1" y="4" width="1" height="1" fill="#ffffff" />
               <rect x="2" y="4" width="1" height="1" fill="#2b4289" />
               <rect x="3" y="4" width="2" height="1" fill="#ab6b49" />
               <rect x="5" y="4" width="1" height="1" fill="#2b4289" />
               <rect x="6" y="4" width="1" height="1" fill="#ffffff" />
-              <rect x="7" y="4" width="1" height="1" fill="#c68863" />
-              {/* Cheeks & Nose */}
-              <rect x="0" y="5" width="3" height="1" fill="#c68863" />
+              {/* Nose & Mouth area */}
+              <rect x="1" y="5" width="2" height="1" fill="#c68863" />
               <rect x="3" y="5" width="2" height="1" fill="#935133" />
-              <rect x="5" y="5" width="3" height="1" fill="#c68863" />
-              {/* Mouth & Goatee */}
-              <rect x="0" y="6" width="2" height="1" fill="#c68863" />
-              <rect x="2" y="6" width="4" height="1" fill="#59321f" />
-              <rect x="6" y="6" width="2" height="1" fill="#c68863" />
-              <rect x="0" y="7" width="3" height="1" fill="#c68863" />
-              <rect x="3" y="7" width="2" height="1" fill="#59321f" />
-              <rect x="5" y="7" width="3" height="1" fill="#c68863" />
+              <rect x="5" y="5" width="2" height="1" fill="#c68863" />
+              <rect x="1" y="6" width="6" height="1" fill="#59321f" />
+              {/* Chin Guard */}
+              <rect x="0" y="7" width="8" height="1" fill="#00aaaa" />
             </svg>
           </div>
 
           {/* Head Back */}
           <div
-            className="absolute inset-0 bg-[#3b200a]"
+            className="absolute inset-0 bg-[#00aaaa]"
             style={{
               transform: "rotateY(180deg) translateZ(13px)",
               filter: "brightness(0.7)",
@@ -161,9 +157,8 @@ export const InteractiveSteve: React.FC<InteractiveSteveProps> = ({ className = 
             }}
           >
             <svg viewBox="0 0 8 8" className="w-full h-full" style={{ shapeRendering: "crispEdges" }}>
-              <rect x="0" y="0" width="8" height="4" fill="#4a2c11" />
-              <rect x="0" y="4" width="5" height="4" fill="#4a2c11" />
-              <rect x="5" y="4" width="3" height="4" fill="#c68863" />
+              <rect x="0" y="0" width="8" height="8" fill="#55ffff" />
+              <rect x="0" y="5" width="4" height="2" fill="#00aaaa" />
             </svg>
           </div>
 
@@ -176,24 +171,23 @@ export const InteractiveSteve: React.FC<InteractiveSteveProps> = ({ className = 
             }}
           >
             <svg viewBox="0 0 8 8" className="w-full h-full" style={{ shapeRendering: "crispEdges" }}>
-              <rect x="0" y="0" width="8" height="4" fill="#4a2c11" />
-              <rect x="3" y="4" width="5" height="4" fill="#4a2c11" />
-              <rect x="0" y="4" width="3" height="4" fill="#c68863" />
+              <rect x="0" y="0" width="8" height="8" fill="#55ffff" />
+              <rect x="4" y="5" width="4" height="2" fill="#00aaaa" />
             </svg>
           </div>
 
           {/* Head Top */}
           <div
-            className="absolute inset-0 bg-[#4a2c11]"
+            className="absolute inset-0 bg-[#55ffff]"
             style={{
               transform: "rotateX(90deg) translateZ(13px)",
-              filter: "brightness(1.15)",
+              filter: "brightness(1.1)",
             }}
           />
 
           {/* Head Bottom */}
           <div
-            className="absolute inset-0 bg-[#b97753]"
+            className="absolute inset-0 bg-[#008080]"
             style={{
               transform: "rotateX(-90deg) translateZ(13px)",
               filter: "brightness(0.5)",
@@ -221,19 +215,18 @@ export const InteractiveSteve: React.FC<InteractiveSteveProps> = ({ className = 
             }}
           >
             <svg viewBox="0 0 8 12" className="w-full h-full" style={{ shapeRendering: "crispEdges" }}>
-              {/* Cyan Shirt with skin neck V */}
-              <rect x="0" y="0" width="8" height="12" fill="#00a299" />
-              <rect x="3" y="0" width="2" height="2" fill="#c68863" />
-              <rect x="3" y="2" width="2" height="1" fill="#b97753" />
-              {/* Subtle shirt shading */}
-              <rect x="0" y="6" width="8" height="1" fill="#008b83" />
-              <rect x="0" y="10" width="8" height="2" fill="#00827a" />
+              {/* Diamond Chestplate */}
+              <rect x="0" y="0" width="8" height="12" fill="#55ffff" />
+              <rect x="2" y="0" width="4" height="2" fill="#2dd4bf" />
+              <rect x="1" y="2" width="6" height="7" fill="#55ffff" />
+              <rect x="2" y="3" width="4" height="5" fill="#2dd4bf" />
+              <rect x="0" y="9" width="8" height="3" fill="#00aaaa" />
             </svg>
           </div>
 
           {/* Torso Back */}
           <div
-            className="absolute inset-0 bg-[#00827a]"
+            className="absolute inset-0 bg-[#00aaaa]"
             style={{
               transform: "rotateY(180deg) translateZ(6.5px)",
               filter: "brightness(0.7)",
@@ -242,7 +235,7 @@ export const InteractiveSteve: React.FC<InteractiveSteveProps> = ({ className = 
 
           {/* Torso Right */}
           <div
-            className="absolute top-0 bottom-0 bg-[#009189]"
+            className="absolute top-0 bottom-0 bg-[#00aaaa]"
             style={{
               width: "13px",
               left: "6.5px",
@@ -253,7 +246,7 @@ export const InteractiveSteve: React.FC<InteractiveSteveProps> = ({ className = 
 
           {/* Torso Left */}
           <div
-            className="absolute top-0 bottom-0 bg-[#00857d]"
+            className="absolute top-0 bottom-0 bg-[#008080]"
             style={{
               width: "13px",
               left: "6.5px",
@@ -264,7 +257,7 @@ export const InteractiveSteve: React.FC<InteractiveSteveProps> = ({ className = 
 
           {/* Torso Top */}
           <div
-            className="absolute left-0 right-0 bg-[#00b5aa]"
+            className="absolute left-0 right-0 bg-[#55ffff]"
             style={{
               height: "13px",
               top: "6.5px",
@@ -274,7 +267,7 @@ export const InteractiveSteve: React.FC<InteractiveSteveProps> = ({ className = 
           />
         </div>
 
-        {/* Right Arm (Player's Right, Screen Left) */}
+        {/* Right Arm (Player's Right, Screen Left) with Fishing Rod */}
         <div
           className="absolute"
           style={{
@@ -296,16 +289,23 @@ export const InteractiveSteve: React.FC<InteractiveSteveProps> = ({ className = 
             style={{ transform: "translateZ(6.5px)" }}
           >
             <svg viewBox="0 0 4 12" className="w-full h-full" style={{ shapeRendering: "crispEdges" }}>
-              {/* Cyan sleeve */}
-              <rect x="0" y="0" width="4" height="4" fill="#00a299" />
+              {/* Diamond Pauldron / Sleeve */}
+              <rect x="0" y="0" width="4" height="4" fill="#55ffff" />
+              <rect x="0" y="3" width="4" height="1" fill="#2dd4bf" />
               {/* Skin arm */}
               <rect x="0" y="4" width="4" height="8" fill="#c68863" />
               <rect x="1" y="8" width="2" height="3" fill="#b97753" />
             </svg>
+
+            {/* Held Item Rod like screenshot */}
+            <div
+              className="absolute -top-4 -left-1 w-1.5 h-14 bg-[#6b7280] border border-[#374151] origin-bottom pointer-events-none"
+              style={{ transform: "rotate(-10deg)" }}
+            />
           </div>
           {/* Arm Outer (Right) */}
           <div
-            className="absolute top-0 bottom-0 bg-[#008b83]"
+            className="absolute top-0 bottom-0 bg-[#00aaaa]"
             style={{
               width: "13px",
               transform: "rotateY(-90deg) translateZ(6.5px)",
@@ -313,13 +313,13 @@ export const InteractiveSteve: React.FC<InteractiveSteveProps> = ({ className = 
             }}
           >
             <svg viewBox="0 0 4 12" className="w-full h-full" style={{ shapeRendering: "crispEdges" }}>
-              <rect x="0" y="0" width="4" height="4" fill="#008b83" />
+              <rect x="0" y="0" width="4" height="4" fill="#55ffff" />
               <rect x="0" y="4" width="4" height="8" fill="#b97753" />
             </svg>
           </div>
           {/* Arm Back */}
           <div
-            className="absolute inset-0 bg-[#00827a]"
+            className="absolute inset-0 bg-[#008080]"
             style={{
               transform: "rotateY(180deg) translateZ(6.5px)",
               filter: "brightness(0.7)",
@@ -346,8 +346,9 @@ export const InteractiveSteve: React.FC<InteractiveSteveProps> = ({ className = 
             style={{ transform: "translateZ(6.5px)" }}
           >
             <svg viewBox="0 0 4 12" className="w-full h-full" style={{ shapeRendering: "crispEdges" }}>
-              {/* Cyan sleeve */}
-              <rect x="0" y="0" width="4" height="4" fill="#00a299" />
+              {/* Diamond Pauldron / Sleeve */}
+              <rect x="0" y="0" width="4" height="4" fill="#55ffff" />
+              <rect x="0" y="3" width="4" height="1" fill="#2dd4bf" />
               {/* Skin arm */}
               <rect x="0" y="4" width="4" height="8" fill="#c68863" />
               <rect x="1" y="8" width="2" height="3" fill="#b97753" />
@@ -363,13 +364,13 @@ export const InteractiveSteve: React.FC<InteractiveSteveProps> = ({ className = 
             }}
           >
             <svg viewBox="0 0 4 12" className="w-full h-full" style={{ shapeRendering: "crispEdges" }}>
-              <rect x="0" y="0" width="4" height="4" fill="#009189" />
+              <rect x="0" y="0" width="4" height="4" fill="#00aaaa" />
               <rect x="0" y="4" width="4" height="8" fill="#c68863" />
             </svg>
           </div>
           {/* Arm Back */}
           <div
-            className="absolute inset-0 bg-[#00827a]"
+            className="absolute inset-0 bg-[#008080]"
             style={{
               transform: "rotateY(180deg) translateZ(6.5px)",
               filter: "brightness(0.7)",
@@ -377,7 +378,7 @@ export const InteractiveSteve: React.FC<InteractiveSteveProps> = ({ className = 
           />
         </div>
 
-        {/* Right Leg (Screen Left) */}
+        {/* Right Leg (Screen Left) - Diamond Leggings & Boots */}
         <div
           className="absolute"
           style={{
@@ -391,15 +392,17 @@ export const InteractiveSteve: React.FC<InteractiveSteveProps> = ({ className = 
           {/* Front */}
           <div className="absolute inset-0" style={{ transform: "translateZ(6.5px)" }}>
             <svg viewBox="0 0 4 12" className="w-full h-full" style={{ shapeRendering: "crispEdges" }}>
-              <rect x="0" y="0" width="4" height="9" fill="#3c3ca0" />
-              <rect x="1" y="4" width="2" height="4" fill="#2e2e82" />
-              <rect x="0" y="9" width="4" height="3" fill="#4a4a4a" />
-              <rect x="0" y="11" width="4" height="1" fill="#333333" />
+              {/* Diamond Legging */}
+              <rect x="0" y="0" width="4" height="9" fill="#55ffff" />
+              <rect x="1" y="2" width="2" height="5" fill="#2dd4bf" />
+              {/* Diamond Boot */}
+              <rect x="0" y="9" width="4" height="3" fill="#00aaaa" />
+              <rect x="0" y="11" width="4" height="1" fill="#008080" />
             </svg>
           </div>
           {/* Side */}
           <div
-            className="absolute top-0 bottom-0 bg-[#2e2e82]"
+            className="absolute top-0 bottom-0 bg-[#00aaaa]"
             style={{
               width: "13px",
               transform: "rotateY(-90deg) translateZ(6.5px)",
@@ -408,7 +411,7 @@ export const InteractiveSteve: React.FC<InteractiveSteveProps> = ({ className = 
           />
           {/* Back */}
           <div
-            className="absolute inset-0 bg-[#25256e]"
+            className="absolute inset-0 bg-[#008080]"
             style={{
               transform: "rotateY(180deg) translateZ(6.5px)",
               filter: "brightness(0.7)",
@@ -416,7 +419,7 @@ export const InteractiveSteve: React.FC<InteractiveSteveProps> = ({ className = 
           />
         </div>
 
-        {/* Left Leg (Screen Right) */}
+        {/* Left Leg (Screen Right) - Diamond Leggings & Boots */}
         <div
           className="absolute"
           style={{
@@ -430,15 +433,17 @@ export const InteractiveSteve: React.FC<InteractiveSteveProps> = ({ className = 
           {/* Front */}
           <div className="absolute inset-0" style={{ transform: "translateZ(6.5px)" }}>
             <svg viewBox="0 0 4 12" className="w-full h-full" style={{ shapeRendering: "crispEdges" }}>
-              <rect x="0" y="0" width="4" height="9" fill="#3c3ca0" />
-              <rect x="1" y="4" width="2" height="4" fill="#2e2e82" />
-              <rect x="0" y="9" width="4" height="3" fill="#4a4a4a" />
-              <rect x="0" y="11" width="4" height="1" fill="#333333" />
+              {/* Diamond Legging */}
+              <rect x="0" y="0" width="4" height="9" fill="#55ffff" />
+              <rect x="1" y="2" width="2" height="5" fill="#2dd4bf" />
+              {/* Diamond Boot */}
+              <rect x="0" y="9" width="4" height="3" fill="#00aaaa" />
+              <rect x="0" y="11" width="4" height="1" fill="#008080" />
             </svg>
           </div>
           {/* Side */}
           <div
-            className="absolute top-0 bottom-0 bg-[#353591]"
+            className="absolute top-0 bottom-0 bg-[#00aaaa]"
             style={{
               width: "13px",
               transform: "rotateY(90deg) translateZ(6.5px)",
@@ -447,7 +452,7 @@ export const InteractiveSteve: React.FC<InteractiveSteveProps> = ({ className = 
           />
           {/* Back */}
           <div
-            className="absolute inset-0 bg-[#25256e]"
+            className="absolute inset-0 bg-[#008080]"
             style={{
               transform: "rotateY(180deg) translateZ(6.5px)",
               filter: "brightness(0.7)",

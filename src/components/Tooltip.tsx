@@ -50,7 +50,7 @@ export const MinecraftTooltipContent: React.FC<TooltipProps> = ({
       {/* Enchantment / Subtitle */}
       {enchantment && (
         <div className="text-[#a855f7] italic tracking-wide mb-1.5 flex items-center gap-1">
-          <span className="inline-block w-1.5 h-1.5 bg-[#a855f7] animate-pulse" />
+          <span className="inline-block w-1.5 h-1.5 bg-[#a855f7]" />
           {enchantment}
         </div>
       )}

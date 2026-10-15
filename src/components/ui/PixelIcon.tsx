@@ -45,7 +45,14 @@ interface PixelIconProps {
     | "smithing-template"
     | "respawn-anchor"
     | "iron-sword"
-    | "diamond-sword";
+    | "diamond-sword"
+    | "sun"
+    | "moon"
+    | "diamond-helmet"
+    | "diamond-chestplate"
+    | "diamond-leggings"
+    | "shield-wood"
+    | "crafting-arrow";
   className?: string;
   size?: number;
 }
@@ -963,6 +970,127 @@ export const PixelIcon: React.FC<PixelIconProps> = ({
           <rect x="5" y="5" width="6" height="6" fill="#7c3aed" />
           <rect x="6" y="6" width="4" height="4" fill="#c084fc" />
           <rect x="7" y="7" width="2" height="2" fill="#fdf4ff" />
+        </svg>
+      );
+
+    case "sun":
+      return (
+        <svg {...commonProps}>
+          {/* Outer Sun Corona / Rays */}
+          <rect x="7" y="1" width="2" height="2" fill="#f59e0b" />
+          <rect x="7" y="13" width="2" height="2" fill="#f59e0b" />
+          <rect x="1" y="7" width="2" height="2" fill="#f59e0b" />
+          <rect x="13" y="7" width="2" height="2" fill="#f59e0b" />
+          <rect x="3" y="3" width="2" height="2" fill="#fbbf24" />
+          <rect x="11" y="3" width="2" height="2" fill="#fbbf24" />
+          <rect x="3" y="11" width="2" height="2" fill="#fbbf24" />
+          <rect x="11" y="11" width="2" height="2" fill="#fbbf24" />
+          {/* Main Minecraft Square Sun */}
+          <rect x="4" y="4" width="8" height="8" fill="#fbbf24" />
+          <rect x="5" y="5" width="6" height="6" fill="#fef08a" />
+          <rect x="6" y="6" width="4" height="4" fill="#ffffff" />
+        </svg>
+      );
+
+    case "moon":
+      return (
+        <svg {...commonProps}>
+          {/* Outer glow */}
+          <rect x="2" y="2" width="12" height="12" fill="#38bdf8" fillOpacity="0.2" />
+          {/* Minecraft Square Moon */}
+          <rect x="3" y="3" width="10" height="10" fill="#e2e8f0" />
+          <rect x="4" y="4" width="8" height="8" fill="#f8fafc" />
+          {/* Lunar Craters (Minecraft style) */}
+          <rect x="5" y="5" width="3" height="3" fill="#94a3b8" />
+          <rect x="6" y="6" width="1" height="1" fill="#64748b" />
+          <rect x="9" y="8" width="2" height="2" fill="#94a3b8" />
+          <rect x="5" y="9" width="2" height="1" fill="#cbd5e1" />
+          <rect x="8" y="5" width="2" height="1" fill="#cbd5e1" />
+        </svg>
+      );
+
+    case "diamond-helmet":
+      return (
+        <svg {...commonProps}>
+          <rect x="4" y="2" width="8" height="2" fill="#55ffff" />
+          <rect x="3" y="4" width="10" height="4" fill="#55ffff" />
+          <rect x="4" y="3" width="6" height="1" fill="#ffffff" />
+          <rect x="5" y="7" width="2" height="2" fill="#00aaaa" />
+          <rect x="9" y="7" width="2" height="2" fill="#00aaaa" />
+          <rect x="3" y="8" width="3" height="4" fill="#55ffff" />
+          <rect x="10" y="8" width="3" height="4" fill="#55ffff" />
+          <rect x="3" y="10" width="3" height="2" fill="#00aaaa" />
+          <rect x="10" y="10" width="3" height="2" fill="#00aaaa" />
+          <rect x="6" y="4" width="4" height="2" fill="#2dd4bf" />
+        </svg>
+      );
+
+    case "diamond-chestplate":
+      return (
+        <svg {...commonProps}>
+          <rect x="2" y="2" width="4" height="3" fill="#55ffff" />
+          <rect x="10" y="2" width="4" height="3" fill="#55ffff" />
+          <rect x="3" y="2" width="2" height="1" fill="#ffffff" />
+          <rect x="11" y="2" width="2" height="1" fill="#ffffff" />
+          <rect x="6" y="2" width="4" height="3" fill="#008080" />
+          <rect x="3" y="5" width="10" height="9" fill="#55ffff" />
+          <rect x="5" y="6" width="6" height="7" fill="#00aaaa" />
+          <rect x="6" y="7" width="4" height="5" fill="#55ffff" />
+          <rect x="3" y="12" width="10" height="2" fill="#008080" />
+        </svg>
+      );
+
+    case "diamond-leggings":
+      return (
+        <svg {...commonProps}>
+          <rect x="3" y="2" width="10" height="3" fill="#55ffff" />
+          <rect x="4" y="2" width="8" height="1" fill="#ffffff" />
+          <rect x="3" y="5" width="4" height="9" fill="#55ffff" />
+          <rect x="4" y="7" width="2" height="4" fill="#00aaaa" />
+          <rect x="3" y="12" width="4" height="2" fill="#008080" />
+          <rect x="9" y="5" width="4" height="9" fill="#55ffff" />
+          <rect x="10" y="7" width="2" height="4" fill="#00aaaa" />
+          <rect x="9" y="12" width="4" height="2" fill="#008080" />
+          <rect x="7" y="5" width="2" height="9" fill="#008080" />
+        </svg>
+      );
+
+    case "diamond-boots":
+      return (
+        <svg {...commonProps}>
+          <rect x="3" y="4" width="3" height="7" fill="#55ffff" />
+          <rect x="2" y="9" width="5" height="5" fill="#55ffff" />
+          <rect x="2" y="12" width="5" height="2" fill="#008080" />
+          <rect x="3" y="5" width="2" height="2" fill="#ffffff" />
+          <rect x="10" y="4" width="3" height="7" fill="#55ffff" />
+          <rect x="9" y="9" width="5" height="5" fill="#55ffff" />
+          <rect x="9" y="12" width="5" height="2" fill="#008080" />
+          <rect x="10" y="5" width="2" height="2" fill="#ffffff" />
+        </svg>
+      );
+
+    case "shield-wood":
+      return (
+        <svg {...commonProps}>
+          <rect x="4" y="1" width="8" height="1" fill="#cbd5e1" />
+          <rect x="3" y="2" width="1" height="9" fill="#cbd5e1" />
+          <rect x="12" y="2" width="1" height="9" fill="#cbd5e1" />
+          <rect x="4" y="11" width="8" height="1" fill="#cbd5e1" />
+          <rect x="5" y="12" width="6" height="1" fill="#94a3b8" />
+          <rect x="6" y="13" width="4" height="1" fill="#64748b" />
+          <rect x="7" y="14" width="2" height="1" fill="#475569" />
+          <rect x="4" y="2" width="8" height="9" fill="#855325" />
+          <rect x="5" y="2" width="6" height="9" fill="#a0522d" />
+          <rect x="7" y="2" width="2" height="10" fill="#603813" />
+          <rect x="7" y="5" width="2" height="3" fill="#e2e8f0" />
+        </svg>
+      );
+
+    case "crafting-arrow":
+      return (
+        <svg width={size} height={Math.round(size * 0.7)} viewBox="0 0 22 15" fill="none" xmlns="http://www.w3.org/2000/svg" className={className} style={{ shapeRendering: "crispEdges", imageRendering: "pixelated" }}>
+          <path d="M0 4h12V0l10 7.5L12 15v-4H0V4z" fill="#8b8b8b" stroke="#373737" strokeWidth="1" />
+          <path d="M1 5h11V2l8 5.5-8 5.5V9H1V5z" fill="#a0a0a0" />
         </svg>
       );
 

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { MinecraftButton } from "@/components/ui/MinecraftButton";
 import { PixelIcon } from "@/components/ui/PixelIcon";
 import { useSoundEffects } from "@/hooks/useSoundEffects";
@@ -21,7 +21,35 @@ export const TitleScreen: React.FC<TitleScreenProps> = ({
   const [splashIndex, setSplashIndex] = useState(0);
   const [showOptionsModal, setShowOptionsModal] = useState(false);
   const [showQuitModal, setShowQuitModal] = useState(false);
+  const [isNight, setIsNight] = useState<boolean>(false);
+  const [showTimeToast, setShowTimeToast] = useState<boolean>(false);
   const { playPop, playClick, isMuted, toggleMute } = useSoundEffects();
+
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("mc_time_of_day");
+      if (saved === "night") {
+        setIsNight(true);
+      }
+    } catch {
+      // safe fallback
+    }
+  }, []);
+
+  const handleToggleNight = () => {
+    playClick();
+    setIsNight((prev) => {
+      const nextVal = !prev;
+      try {
+        localStorage.setItem("mc_time_of_day", nextVal ? "night" : "day");
+      } catch {
+        // safe fallback
+      }
+      return nextVal;
+    });
+    setShowTimeToast(true);
+    setTimeout(() => setShowTimeToast(false), 2400);
+  };
 
   const splashes = [
     "It came from space.",
@@ -56,16 +84,65 @@ export const TitleScreen: React.FC<TitleScreenProps> = ({
       aria-label="Title Screen Hero"
       className="relative min-h-screen w-full flex flex-col justify-between items-center select-none overflow-hidden bg-black"
     >
-      {/* Background Panorama matching the Reference Image */}
+      {/* Background Panorama - Layer 1: Sunrise / Sunset Panorama */}
       <div
-        className="absolute inset-0 z-0 bg-cover bg-center transition-transform duration-1000 scale-100"
+        className="absolute inset-0 z-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out pointer-events-none"
         style={{
           backgroundImage: "url('/images/minecraft_sunset_panorama.jpg')",
           imageRendering: "pixelated",
+          opacity: isNight ? 0 : 1,
+          willChange: "opacity",
+          transform: "translateZ(0)",
         }}
       >
-        {/* Subtle vignette and sunset warmth glow */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30 pointer-events-none" />
+        {/* Warm sunrise/sunset golden vignette */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-amber-950/15 to-black/30 pointer-events-none" />
+      </div>
+
+      {/* Background Panorama - Layer 2: Night Panorama with Moon, Stars & Illuminated Village */}
+      <div
+        className="absolute inset-0 z-0 bg-cover bg-center transition-opacity duration-1000 ease-in-out pointer-events-none"
+        style={{
+          backgroundImage: "url('/images/minecraft_night_panorama.jpg')",
+          imageRendering: "pixelated",
+          opacity: isNight ? 1 : 0,
+          willChange: "opacity",
+          transform: "translateZ(0)",
+        }}
+      >
+        {/* Midnight indigo vignette & soft starlight */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-indigo-950/25 to-black/40 pointer-events-none" />
+      </div>
+
+      {/* Top Controls: Night Mode Toggle */}
+      <div className="absolute top-4 right-4 z-30 flex flex-col items-end gap-1.5">
+        <button
+          type="button"
+          onClick={handleToggleNight}
+          aria-label={isNight ? "Switch to Sunrise / Day Mode" : "Switch to Night Mode"}
+          title={isNight ? "Click to set time to Sunrise / Day" : "Click to set time to Sunset / Night"}
+          className="px-3 py-1.5 sm:px-4 sm:py-2 bg-[#2a2b33]/90 hover:bg-[#393b47] active:bg-[#1a1b20] border-2 border-t-[#ffffff] border-l-[#ffffff] border-b-[#111111] border-r-[#111111] active:border-t-[#111111] active:border-l-[#111111] active:border-b-[#ffffff] active:border-r-[#ffffff] flex items-center gap-2 font-minecraft text-xs sm:text-sm text-white shadow-[0_4px_16px_rgba(0,0,0,0.85)] cursor-pointer transition-all backdrop-blur-xs group"
+        >
+          <PixelIcon
+            name={isNight ? "moon" : "sun"}
+            size={18}
+            className="transform group-hover:rotate-12 transition-transform drop-shadow-[0_0_8px_rgba(255,255,255,0.7)]"
+          />
+          <span className="text-[#ffff55] drop-shadow-[1px_1px_0_#000] font-bold">
+            {isNight ? "Night Mode" : "Day Mode"}
+          </span>
+          <span className="text-[10px] text-[#4ade80] font-bold">
+            [{isNight ? "NIGHT" : "DAY"}]
+          </span>
+        </button>
+
+        {/* Chat Toast for Time Command (Minecraft Style) */}
+        {showTimeToast && (
+          <div className="bg-[#101010]/95 border-2 border-[#555555] px-3 py-1 text-[11px] font-minecraft text-white shadow-xl animate-fade-in flex items-center gap-2">
+            <span className="text-[#55ff55]">/time set</span>
+            <span className="text-[#ffff55]">{isNight ? "night (13000)" : "day (1000)"}</span>
+          </div>
+        )}
       </div>
 
       {/* Top Spacer */}
@@ -274,6 +351,20 @@ export const TitleScreen: React.FC<TitleScreenProps> = ({
                   className="px-3 py-1 bg-[#555555] border border-white hover:bg-[#666666] cursor-pointer"
                 >
                   {isMuted ? "OFF" : "ON (100%)"}
+                </button>
+              </div>
+
+              <div className="flex justify-between items-center p-2 bg-[#8b8b8b] border-2 border-t-[#373737] border-l-[#373737] border-b-[#ffffff] border-r-[#ffffff] text-white">
+                <span className="flex items-center gap-1.5">
+                  <PixelIcon name={isNight ? "moon" : "sun"} size={14} />
+                  <span>Time of Day:</span>
+                </span>
+                <button
+                  type="button"
+                  onClick={handleToggleNight}
+                  className="px-3 py-1 bg-[#555555] border border-white hover:bg-[#666666] cursor-pointer text-[#ffff55] font-bold"
+                >
+                  {isNight ? "NIGHT (Sunset)" : "DAY (Sunrise)"}
                 </button>
               </div>
 

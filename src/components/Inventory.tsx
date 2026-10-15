@@ -12,7 +12,7 @@ interface EquipmentItem {
   id: string;
   name: string;
   slot: "helmet" | "chestplate" | "leggings" | "boots" | "shield";
-  icon: "helmet-silhouette" | "chestplate-silhouette" | "leggings-silhouette" | "boots-silhouette" | "shield-silhouette";
+  icon: "diamond-helmet" | "diamond-chestplate" | "diamond-leggings" | "diamond-boots" | "shield-wood";
   equippedName: string;
   enchantment: string;
   description: string;
@@ -24,7 +24,7 @@ const armorItems: EquipmentItem[] = [
     id: "helmet",
     name: "Helmet Slot",
     slot: "helmet",
-    icon: "helmet-silhouette",
+    icon: "diamond-helmet",
     equippedName: "Dual B.Eng & B.Sc Degree Cap",
     enchantment: "Protection IV, Respiration III",
     description: "B.Eng Software Engineering & B.Sc Computer Science at VSIT & University of Greater Manchester.",
@@ -34,7 +34,7 @@ const armorItems: EquipmentItem[] = [
     id: "chestplate",
     name: "Chestplate Slot",
     slot: "chestplate",
-    icon: "chestplate-silhouette",
+    icon: "diamond-chestplate",
     equippedName: "Royal Trader Frontend Tunic",
     enchantment: "Efficiency V, Unbreaking III",
     description: "Frontend development intern building responsive web pages and managing inventory in Excel.",
@@ -44,7 +44,7 @@ const armorItems: EquipmentItem[] = [
     id: "leggings",
     name: "Leggings Slot",
     slot: "leggings",
-    icon: "leggings-silhouette",
+    icon: "diamond-leggings",
     equippedName: "Vidyalankar Diploma Greaves",
     enchantment: "Swift Sneak III, 88.47% Distinction",
     description: "Diploma in Information Technology from Vidyalankar Polytechnic, Wadala (88.47%).",
@@ -54,7 +54,7 @@ const armorItems: EquipmentItem[] = [
     id: "boots",
     name: "Boots Slot",
     slot: "boots",
-    icon: "boots-silhouette",
+    icon: "diamond-boots",
     equippedName: "St. Stanislaus SSC Boots",
     enchantment: "Feather Falling IV, Soul Speed III",
     description: "Completed SSC at St. Stanislaus High School, Bandra (West) (Batch 2022-2023).",
@@ -66,10 +66,10 @@ const offhandItem: EquipmentItem = {
   id: "shield",
   name: "Off-Hand Slot",
   slot: "shield",
-  icon: "shield-silhouette",
-  equippedName: "Hackathon Shield of Resilience",
+  icon: "shield-wood",
+  equippedName: "Shield of Resilience",
   enchantment: "Unbreaking III, Mending",
-  description: "Learnify, Safenet, and SherlockLogs hackathon builds protecting against production anomalies.",
+  description: "Learnify, Safenet, and collegiate hackathon builds protecting against production anomalies.",
   level: 95,
 };
 
@@ -221,14 +221,15 @@ export const Inventory: React.FC = () => {
         </div>
 
         {/* Exact Authentic Minecraft Survival Inventory GUI Container */}
+              {/* Exact Authentic Minecraft Survival Inventory GUI Container */}
         <div
-          className="w-full max-w-[430px] sm:max-w-[460px] bg-[#c6c6c6] p-3 sm:p-4 border-4 border-t-[#ffffff] border-l-[#ffffff] border-b-[#555555] border-r-[#555555] shadow-[0_20px_50px_rgba(0,0,0,0.9)] relative text-[#373737]"
+          className="w-full max-w-[430px] sm:max-w-[460px] bg-[#c6c6c6] p-2.5 sm:p-3.5 border-4 border-t-[#ffffff] border-l-[#ffffff] border-b-[#555555] border-r-[#555555] shadow-[0_20px_50px_rgba(0,0,0,0.9)] relative text-[#373737]"
           style={{ imageRendering: "pixelated" }}
         >
-          {/* Top Section: Armor + Steve + Shield + Crafting Area */}
-          <div className="flex items-start justify-between gap-2 sm:gap-3 mb-3">
-            {/* Left: 4 Armor Slots */}
-            <div className="flex flex-col gap-1">
+          {/* Top Section: 4 Armor Slots + Steve Chamber + Shield Slot + Crafting 2x2 Grid & Output */}
+          <div className="flex items-start justify-between gap-1.5 sm:gap-2 mb-2.5">
+            {/* Left Column: 4 Armor Slots */}
+            <div className="flex flex-col gap-[3px]">
               {armorItems.map((item) => {
                 const isSelected = activeSkill?.name === item.equippedName;
                 return (
@@ -238,71 +239,79 @@ export const Inventory: React.FC = () => {
                     onClick={() => handleSelectSkill(item)}
                     aria-label={`${item.name}: ${item.equippedName}`}
                     className={`
-                      w-9 h-9 sm:w-10 sm:h-10 bg-[#8b8b8b] relative flex items-center justify-center cursor-pointer transition-all
+                      w-9 h-9 sm:w-10 sm:h-10 bg-[#8b8b8b] relative flex items-center justify-center cursor-pointer transition-colors
                       border-2 border-t-[#373737] border-l-[#373737] border-b-[#ffffff] border-r-[#ffffff]
                       hover:bg-[#9e9e9e] active:scale-95
-                      ${isSelected ? "ring-2 ring-[#ffff55] ring-offset-1 ring-offset-[#8b8b8b]" : ""}
+                      ${isSelected ? "border-white ring-1 ring-white" : ""}
                     `}
                     title={`${item.equippedName} (${item.enchantment})`}
                   >
-                    <PixelIcon name={item.icon} size={22} className="opacity-90 hover:opacity-100" />
-                    {/* Small equipped indicator dot */}
-                    <span className="absolute bottom-0.5 right-0.5 w-1.5 h-1.5 bg-[#4ade80] rounded-full" />
+                    <PixelIcon name={item.icon} size={24} />
                   </button>
                 );
               })}
             </div>
 
-            {/* Center: Steve 3D Preview Chamber */}
+            {/* Center Area: Steve 3D Preview Chamber + Off-Hand Shield Slot */}
             <div className="flex items-end gap-1.5">
-              <div className="w-[105px] sm:w-[115px] h-[156px] bg-black border-2 border-t-[#373737] border-l-[#373737] border-b-[#ffffff] border-r-[#ffffff] flex items-center justify-center relative overflow-hidden">
+              <div className="w-[102px] sm:w-[112px] h-[142px] sm:h-[154px] bg-black border-2 border-t-[#373737] border-l-[#373737] border-b-[#ffffff] border-r-[#ffffff] flex items-center justify-center relative overflow-hidden">
                 <InteractiveSteve className="w-full h-full" />
               </div>
 
-              {/* Offhand Slot (Beside Steve at the bottom) */}
+              {/* Offhand Slot (Beside Steve at bottom-right) */}
               <button
                 type="button"
                 onClick={() => handleSelectSkill(offhandItem)}
                 aria-label="Off-Hand Shield Slot"
                 className={`
-                  w-9 h-9 sm:w-10 sm:h-10 bg-[#8b8b8b] relative flex items-center justify-center cursor-pointer transition-all
+                  w-9 h-9 sm:w-10 sm:h-10 bg-[#8b8b8b] relative flex items-center justify-center cursor-pointer transition-colors
                   border-2 border-t-[#373737] border-l-[#373737] border-b-[#ffffff] border-r-[#ffffff]
                   hover:bg-[#9e9e9e] active:scale-95
-                  ${activeSkill?.name === offhandItem.equippedName ? "ring-2 ring-[#ffff55] ring-offset-1 ring-offset-[#8b8b8b]" : ""}
+                  ${activeSkill?.name === offhandItem.equippedName ? "border-white ring-1 ring-white" : ""}
                 `}
                 title={`${offhandItem.equippedName} (${offhandItem.enchantment})`}
               >
-                <PixelIcon name="shield-silhouette" size={22} className="opacity-90 hover:opacity-100" />
-                <span className="absolute bottom-0.5 right-0.5 w-1.5 h-1.5 bg-[#38bdf8] rounded-full" />
+                <PixelIcon name="shield-wood" size={24} />
               </button>
             </div>
 
-            {/* Right: Crafting 2x2 Grid + Green Recipe Book + Arrow + Result */}
-            <div className="flex flex-col items-center">
-              <div className="font-minecraft text-[11px] text-[#404040] font-bold mb-1 self-start">
+            {/* Right Column: Crafting Area */}
+            <div className="flex flex-col items-start self-start pt-0.5">
+              <div className="font-minecraft text-xs text-[#373737] font-bold mb-1 ml-0.5 select-none">
                 Crafting
               </div>
 
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1.5 sm:gap-2">
                 {/* 2x2 Slots Grid */}
-                <div className="grid grid-cols-2 gap-1 bg-[#8b8b8b] p-1 border-t-2 border-l-2 border-[#373737] border-b-2 border-r-2 border-[#ffffff]">
+                <div className="grid grid-cols-2 gap-[2px] bg-[#8b8b8b] p-0.5 border-t-2 border-l-2 border-[#373737] border-b-2 border-r-2 border-[#ffffff]">
                   {currentRecipe.inputs.map((inp, idx) => (
                     <div
                       key={`craft-${idx}`}
-                      className="w-8 h-8 sm:w-9 sm:h-9 bg-[#8b8b8b] border-2 border-t-[#373737] border-l-[#373737] border-b-[#ffffff] border-r-[#ffffff] flex items-center justify-center cursor-pointer group"
-                      title={inp.name}
+                      onClick={() => {
+                        playClick();
+                        setRecipeIndex((prev) => (prev + 1) % recipes.length);
+                      }}
+                      className="w-8 h-8 sm:w-9 sm:h-9 bg-[#8b8b8b] border-2 border-t-[#373737] border-l-[#373737] border-b-[#ffffff] border-r-[#ffffff] flex items-center justify-center cursor-pointer hover:bg-[#9e9e9e] transition-colors"
+                      title={`${inp.name} (Click to cycle recipe)`}
                     >
-                      <PixelIcon name={inp.icon} size={18} className="group-hover:scale-110 transition-transform" />
+                      <PixelIcon name={inp.icon} size={18} />
                     </div>
                   ))}
                 </div>
 
-                {/* Arrow */}
-                <div className="font-minecraft text-base sm:text-lg text-[#404040]">
-                  ➔
+                {/* Crafting Arrow */}
+                <div
+                  onClick={() => {
+                    playClick();
+                    setRecipeIndex((prev) => (prev + 1) % recipes.length);
+                  }}
+                  className="cursor-pointer hover:opacity-75 transition-opacity px-0.5"
+                  title="Click to cycle crafting recipe"
+                >
+                  <PixelIcon name="crafting-arrow" size={24} />
                 </div>
 
-                {/* Result Slot */}
+                {/* Output Slot */}
                 <div
                   onClick={() => {
                     playPop();
@@ -316,41 +325,31 @@ export const Inventory: React.FC = () => {
                       stackCount: 1,
                     });
                   }}
-                  className="w-12 h-12 sm:w-13 sm:h-13 bg-[#8b8b8b] border-2 border-t-[#373737] border-l-[#373737] border-b-[#ffffff] border-r-[#ffffff] flex items-center justify-center mc-enchanted cursor-pointer hover:scale-105 transition-transform"
+                  className="w-10 h-10 sm:w-11 sm:h-11 bg-[#8b8b8b] border-2 border-t-[#373737] border-l-[#373737] border-b-[#ffffff] border-r-[#ffffff] flex items-center justify-center cursor-pointer hover:bg-[#9e9e9e] transition-colors"
                   title={`${currentRecipe.outputName}: Click to inspect`}
                 >
-                  <PixelIcon name={currentRecipe.outputIcon} size={28} className="animate-pulse" />
+                  <PixelIcon name={currentRecipe.outputIcon} size={24} />
                 </div>
               </div>
 
-              {/* Green Recipe Book Button (Directly beneath 2x2 grid) */}
-              <div className="w-full flex items-center justify-start mt-2 relative">
-                <button
-                  type="button"
-                  onClick={handleRecipeBookClick}
-                  className="w-8 h-8 sm:w-9 sm:h-9 bg-[#8b8b8b] hover:bg-[#a0a0a0] active:scale-95 border-2 border-t-[#ffffff] border-l-[#ffffff] border-b-[#373737] border-r-[#373737] flex items-center justify-center cursor-pointer shadow-xs transition-colors"
-                  title="Click Recipe Book to cycle recipes!"
-                  aria-label="Cycle Crafting Recipes"
-                >
-                  <PixelIcon name="recipe-book" size={20} />
-                </button>
-
-                <span className="font-minecraft text-[8px] text-[#555555] ml-2 leading-tight">
-                  {currentRecipe.name}
-                </span>
-
-                {showRecipeToast && (
-                  <div className="absolute top-full mt-1 left-0 z-50 bg-[#1c1c1c] text-white border border-[#ffff55] px-2 py-1 text-[9px] font-minecraft whitespace-nowrap shadow-lg">
-                    📖 Cycled to: {currentRecipe.name}!
-                  </div>
-                )}
-              </div>
+              {/* Minimal Recipe Cycle Indicator */}
+              <button
+                type="button"
+                onClick={() => {
+                  playClick();
+                  setRecipeIndex((prev) => (prev + 1) % recipes.length);
+                }}
+                className="font-minecraft text-[9px] text-[#555555] hover:text-[#111111] mt-1.5 ml-0.5 cursor-pointer text-left transition-colors"
+                title="Click to cycle recipes"
+              >
+                Recipe: <span className="font-bold underline">{currentRecipe.name}</span>
+              </button>
             </div>
           </div>
 
           {/* Middle Section: 3 Rows of 9 Main Inventory Slots (27 Slots) */}
-          <div className="mb-2">
-            <div className="grid grid-cols-9 gap-1 sm:gap-1.5 p-1.5 sm:p-2 bg-[#8b8b8b] border-t-2 border-l-2 border-[#373737] border-b-2 border-r-2 border-[#ffffff]">
+          <div className="mb-1">
+            <div className="grid grid-cols-9 gap-[2px] sm:gap-1 p-1 bg-[#8b8b8b] border-t-2 border-l-2 border-[#373737] border-b-2 border-r-2 border-[#ffffff]">
               {inventorySlots.map((skill, index) => {
                 const isSelected = activeSkill?.name === skill?.name;
 
@@ -365,15 +364,14 @@ export const Inventory: React.FC = () => {
                       onClick={() => handleSelectSkill(skill)}
                       aria-label={skill ? `${skill.name}: ${skill.enchantment}` : "Empty slot"}
                       className={`
-                        w-full h-full relative flex items-center justify-center outline-none transition-all
+                        w-full h-full relative flex items-center justify-center outline-none transition-colors
                         border-2 border-t-[#373737] border-l-[#373737] border-b-[#ffffff] border-r-[#ffffff]
                         ${
                           skill
                             ? "bg-[#8b8b8b] hover:bg-[#a0a0a0] cursor-pointer"
-                            : "bg-[#8b8b8b]/60 cursor-default"
+                            : "bg-[#8b8b8b] cursor-default"
                         }
-                        ${skill && skill.level >= 88 ? "mc-enchanted" : ""}
-                        ${isSelected ? "ring-2 ring-[#ffff55] ring-offset-1 ring-offset-[#8b8b8b]" : ""}
+                        ${isSelected ? "border-white ring-1 ring-white" : ""}
                       `}
                     >
                       {skill && (
@@ -381,13 +379,9 @@ export const Inventory: React.FC = () => {
                           <PixelIcon
                             name={skill.icon}
                             size={20}
-                            className={`transform group-hover:scale-110 transition-transform ${
-                              skill.level > 90 ? "drop-shadow-[0_0_4px_#c084fc]" : ""
-                            }`}
                           />
                           <span
-                            className="absolute bottom-0.5 right-0.5 font-minecraft text-[8px] sm:text-[9px] text-white font-bold pointer-events-none"
-                            style={{ textShadow: "1px 1px 0 #000" }}
+                            className="absolute bottom-0.5 right-0.5 font-minecraft text-[8px] sm:text-[9px] text-white font-bold pointer-events-none drop-shadow-[1px_1px_0_#000]"
                           >
                             {skill.stackCount}
                           </span>
@@ -414,9 +408,9 @@ export const Inventory: React.FC = () => {
             </div>
           </div>
 
-          {/* Bottom Section: 1 Row of 9 Hotbar Slots */}
-          <div>
-            <div className="grid grid-cols-9 gap-1 sm:gap-1.5 p-1.5 sm:p-2 bg-[#8b8b8b] border-t-2 border-l-2 border-[#373737] border-b-2 border-r-2 border-[#ffffff]">
+          {/* Bottom Section: 1 Row of 9 Hotbar Slots with Authentic Separator Gap */}
+          <div className="mt-1">
+            <div className="grid grid-cols-9 gap-[2px] sm:gap-1 p-1 bg-[#8b8b8b] border-t-2 border-l-2 border-[#373737] border-b-2 border-r-2 border-[#ffffff]">
               {hotbarSkills.map((skill, index) => {
                 const isSelected = activeSkill?.name === skill.name;
 
@@ -430,21 +424,18 @@ export const Inventory: React.FC = () => {
                       onClick={() => handleSelectSkill(skill)}
                       aria-label={`${skill.name}: Hotbar slot ${index + 1}`}
                       className={`
-                        w-full h-full relative flex items-center justify-center outline-none transition-all
+                        w-full h-full relative flex items-center justify-center outline-none transition-colors
                         border-2 border-t-[#373737] border-l-[#373737] border-b-[#ffffff] border-r-[#ffffff]
                         bg-[#8b8b8b] hover:bg-[#a0a0a0] cursor-pointer
-                        ${skill.level >= 88 ? "mc-enchanted" : ""}
-                        ${isSelected ? "ring-2 ring-[#ffff55] ring-offset-1 ring-offset-[#8b8b8b]" : ""}
+                        ${isSelected ? "border-white ring-1 ring-white" : ""}
                       `}
                     >
                       <PixelIcon
                         name={skill.icon}
                         size={20}
-                        className="transform group-hover:scale-110 transition-transform"
                       />
                       <span
-                        className="absolute bottom-0.5 right-0.5 font-minecraft text-[8px] sm:text-[9px] text-white font-bold pointer-events-none"
-                        style={{ textShadow: "1px 1px 0 #000" }}
+                        className="absolute bottom-0.5 right-0.5 font-minecraft text-[8px] sm:text-[9px] text-white font-bold pointer-events-none drop-shadow-[1px_1px_0_#000]"
                       >
                         {skill.stackCount}
                       </span>
@@ -469,10 +460,10 @@ export const Inventory: React.FC = () => {
 
           {/* Active Item Details Footer Box */}
           {activeSkill && (
-            <div className="mt-3 p-2.5 bg-[#1a1b22] text-white border-2 border-[#333333] flex flex-col sm:flex-row items-center justify-between gap-2.5">
-              <div className="flex items-center gap-2.5">
+            <div className="mt-2.5 p-2 bg-[#1e2025] text-white border-2 border-t-[#111111] border-l-[#111111] border-b-[#555555] border-r-[#555555] flex flex-col sm:flex-row items-center justify-between gap-2">
+              <div className="flex items-center gap-2">
                 {"icon" in activeSkill && typeof activeSkill.icon === "string" && (
-                  <PixelIcon name={activeSkill.icon as unknown as Parameters<typeof PixelIcon>[0]["name"]} size={24} />
+                  <PixelIcon name={activeSkill.icon as unknown as Parameters<typeof PixelIcon>[0]["name"]} size={22} />
                 )}
                 <div>
                   <div className="font-minecraft text-xs text-[#ffff55] flex items-center gap-2">
