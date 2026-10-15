@@ -36,8 +36,8 @@ export const profileData: Profile = {
     {
       title: "Tech Arsenal & Languages",
       paragraphs: [
-        "Core Skill Domains: Blockchain, Web Development, App Development, IoT, Prompt Engineering, and Database Management (MongoDB, SQL).",
-        "Frontend & Tools: React 19, Next.js, TypeScript, JavaScript, HTML5/CSS3, Git/GitHub, and Microsoft Excel data analytics.",
+        "Core Skill Domains: Fullstack Web & Mobile Development, RESTful APIs, Cloud Services, and Distributed Version Control.",
+        "Technical Stack: TypeScript, JavaScript, Python, Java, C, C++, C#, Kotlin, React.js, Next.js, Dart & Flutter, Node.js, FastAPI, MongoDB, Supabase, Firebase, Cloudflare, Git & GitHub.",
         "Spoken Languages: English, Hindi, and Marathi.",
         "Phone: +91 8976619930 | Email: kurleatharva2007@gmail.com | Location: Mumbai, India.",
       ],

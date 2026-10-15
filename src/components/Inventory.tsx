@@ -82,55 +82,55 @@ export const Inventory: React.FC = () => {
 
   const recipes = [
     {
-      name: "Next.js 15 App",
+      name: "Next.js Fullstack",
       inputs: [
-        { name: "React 19", icon: "beacon" as const },
+        { name: "React.js", icon: "redstone" as const },
         { name: "TypeScript", icon: "sword" as const },
-        { name: "Tailwind CSS", icon: "shield" as const },
-        { name: "Node.js", icon: "redstone" as const },
+        { name: "CSS3", icon: "totem" as const },
+        { name: "Node.js", icon: "server" as const },
       ],
       outputName: "Modern Fullstack App (Next.js)",
       outputIcon: "beacon" as const,
       enchantment: "Server Actions • Turbopack",
-      description: "Crafted modern SSR/SSG web application with React 19 and Next.js 15.",
+      description: "Production Next.js application built with React, TypeScript, Node.js, and CSS3.",
     },
     {
       name: "FastAPI Engine",
       inputs: [
         { name: "Python", icon: "potion" as const },
-        { name: "PostgreSQL", icon: "chest" as const },
-        { name: "Docker", icon: "furnace" as const },
-        { name: "Redis", icon: "redstone" as const },
+        { name: "Supabase", icon: "portal" as const },
+        { name: "Cloudflare", icon: "shield" as const },
+        { name: "FastAPI", icon: "potion" as const },
       ],
       outputName: "High-Concurrency Backend",
       outputIcon: "sword" as const,
-      enchantment: "Pydantic v2 • Asyncpg",
-      description: "High-throughput asynchronous REST API backend with relational indexing.",
+      enchantment: "Pydantic • Async Engine",
+      description: "High-throughput asynchronous REST API backend with Supabase and Cloudflare.",
     },
     {
-      name: "Systems & Memory",
+      name: "Mobile App Hub",
       inputs: [
-        { name: "C Language", icon: "pickaxe" as const },
-        { name: "Valgrind", icon: "clock" as const },
-        { name: "GDB Debugger", icon: "compass" as const },
-        { name: "Algorithms", icon: "book" as const },
+        { name: "Dart & Flutter", icon: "compass" as const },
+        { name: "Firebase", icon: "furnace" as const },
+        { name: "Kotlin", icon: "beacon" as const },
+        { name: "Git", icon: "book" as const },
       ],
-      outputName: "Low-Level Memory Engine",
-      outputIcon: "shield" as const,
-      enchantment: "Zero Leaks • O(1) Access",
-      description: "Custom data structures in C with manual heap management and pointer arithmetic.",
+      outputName: "Cross-Platform Mobile Suite",
+      outputIcon: "totem" as const,
+      enchantment: "Hot Reload • 60 FPS",
+      description: "Cross-platform mobile application powered by Flutter, Kotlin, and Firebase realtime database.",
     },
   ];
 
   const currentRecipe = recipes[recipeIndex];
 
   const categories = [
-    { id: "all", label: "All Items" },
+    { id: "all", label: "All Items (21)" },
     { id: "languages", label: "Languages" },
-    { id: "frontend", label: "Frontend" },
+    { id: "frontend", label: "Frontend & Mobile" },
     { id: "backend", label: "Backend" },
-    { id: "tools", label: "Tools" },
-    { id: "systems", label: "Systems" },
+    { id: "cloud", label: "Cloud & DB" },
+    { id: "tools", label: "Tools & Git" },
   ];
 
   const filteredSkills =
@@ -147,47 +147,15 @@ export const Inventory: React.FC = () => {
 
   // 9 Hotbar slots (Bottom row)
   const hotbarSkills: Skill[] = [
-    skillsData[0], // TypeScript
-    skillsData[5], // React 19
-    {
-      name: "Next.js 15",
-      enchantment: "Efficiency V",
-      description: "App Router, Server Components, SSR/SSG, and Turbopack compiler.",
-      icon: "beacon" as const,
-      category: "frontend" as const,
-      level: 94,
-      stackCount: 64,
-    },
-    skillsData[1], // Python
-    skillsData[2], // C / C++
-    {
-      name: "FastAPI",
-      enchantment: "Quick Charge III",
-      description: "Modern Python web framework for building high-performance REST APIs.",
-      icon: "potion" as const,
-      category: "backend" as const,
-      level: 86,
-      stackCount: 48,
-    },
-    skillsData[4], // SQL
-    {
-      name: "Docker",
-      enchantment: "Unbreaking III",
-      description: "Containerization, multi-stage builds, and microservices orchestration.",
-      icon: "furnace" as const,
-      category: "tools" as const,
-      level: 82,
-      stackCount: 16,
-    },
-    {
-      name: "Totem of Code",
-      enchantment: "Undying I",
-      description: "Prevents fatal production bugs and guarantees resilience under heavy load.",
-      icon: "totem" as const,
-      category: "tools" as const,
-      level: 99,
-      stackCount: 1,
-    },
+    skillsData.find((s) => s.name === "TypeScript") || skillsData[0],
+    skillsData.find((s) => s.name.startsWith("JavaScript")) || skillsData[1],
+    skillsData.find((s) => s.name.startsWith("React")) || skillsData[2],
+    skillsData.find((s) => s.name.startsWith("Next")) || skillsData[3],
+    skillsData.find((s) => s.name.startsWith("Node")) || skillsData[4],
+    skillsData.find((s) => s.name === "Python") || skillsData[5],
+    skillsData.find((s) => s.name === "FastAPI") || skillsData[6],
+    skillsData.find((s) => s.name === "MongoDB") || skillsData[7],
+    skillsData.find((s) => s.name === "Git") || skillsData[8],
   ];
 
   const handleSelectSkill = (skill: Skill | EquipmentItem | null) => {

@@ -42,7 +42,7 @@ export interface Skill {
   enchantment: string;
   description: string;
   icon: IconName;
-  category: "languages" | "frontend" | "backend" | "tools" | "systems";
+  category: "languages" | "frontend" | "backend" | "cloud" | "tools" | "systems";
   level: number; // 1 - 100
   stackCount: number; // e.g. 64, 32, 16
 }
