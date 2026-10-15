@@ -26,8 +26,8 @@ const armorItems: EquipmentItem[] = [
     slot: "helmet",
     icon: "diamond-helmet",
     equippedName: "Dual B.Eng & B.Sc Degree Cap",
-    enchantment: "Protection IV, Respiration III",
-    description: "B.Eng Software Engineering & B.Sc Computer Science at VSIT & University of Greater Manchester.",
+    enchantment: "Protection IV • Promoted to Degree",
+    description: "Promoted to Degree Engineering! Dual Degree in Software Engineering (B.Eng & B.Sc) at VSIT & University of Greater Manchester.",
     level: 96,
   },
   {
@@ -46,8 +46,8 @@ const armorItems: EquipmentItem[] = [
     slot: "leggings",
     icon: "diamond-leggings",
     equippedName: "Vidyalankar Diploma Greaves",
-    enchantment: "Swift Sneak III, 88.47% Distinction",
-    description: "Diploma in Information Technology from Vidyalankar Polytechnic, Wadala (88.47%).",
+    enchantment: "Web & App Dev Mastered • 88.47%",
+    description: "Learned everything of web and app building in Diploma at Vidyalankar Polytechnic, scoring 88.47% distinction.",
     level: 92,
   },
   {
@@ -76,8 +76,8 @@ const offhandItem: EquipmentItem = {
 export const Inventory: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [activeSkill, setActiveSkill] = useState<Skill | EquipmentItem | null>(skillsData[0]);
+  const [activeHotbarSlot, setActiveHotbarSlot] = useState<number>(0);
   const [recipeIndex, setRecipeIndex] = useState<number>(0);
-  const [showRecipeToast, setShowRecipeToast] = useState<boolean>(false);
   const { playPop, playChestOpen, playClick } = useSoundEffects();
 
   const recipes = [
@@ -90,7 +90,7 @@ export const Inventory: React.FC = () => {
         { name: "Node.js", icon: "server" as const },
       ],
       outputName: "Modern Fullstack App (Next.js)",
-      outputIcon: "beacon" as const,
+      outputIcon: "potion" as const,
       enchantment: "Server Actions • Turbopack",
       description: "Production Next.js application built with React, TypeScript, Node.js, and CSS3.",
     },
@@ -145,7 +145,7 @@ export const Inventory: React.FC = () => {
     inventorySlots.push(null);
   }
 
-  // 9 Hotbar slots (Bottom row)
+  // 9 Hotbar slots (Bottom row) matching reference image
   const hotbarSkills: Skill[] = [
     skillsData.find((s) => s.name === "TypeScript") || skillsData[0],
     skillsData.find((s) => s.name.startsWith("JavaScript")) || skillsData[1],
@@ -158,70 +158,106 @@ export const Inventory: React.FC = () => {
     skillsData.find((s) => s.name === "Git") || skillsData[8],
   ];
 
-  const handleSelectSkill = (skill: Skill | EquipmentItem | null) => {
+  const handleSelectSkill = (skill: Skill | EquipmentItem | null, hotbarIdx?: number) => {
     if (skill) {
       playPop();
       setActiveSkill(skill);
+      if (hotbarIdx !== undefined) {
+        setActiveHotbarSlot(hotbarIdx);
+      }
     }
-  };
-
-  const handleRecipeBookClick = () => {
-    playChestOpen();
-    setRecipeIndex((prev) => (prev + 1) % recipes.length);
-    setShowRecipeToast(true);
-    setTimeout(() => setShowRecipeToast(false), 2500);
   };
 
   return (
     <section
       id="skills"
       aria-label="Atharva's Inventory and Skills"
-      className="min-h-screen py-16 px-3 sm:px-6 flex flex-col items-center justify-center relative select-none overflow-hidden bg-mc-stone-bricks-pattern"
+      className="min-h-screen py-12 px-3 sm:px-6 flex flex-col items-center justify-center relative select-none overflow-hidden"
     >
-      {/* Ambient Forge Vignette Overlay */}
-      <div className="absolute inset-0 z-0 bg-radial from-black/40 via-black/65 to-black/85 pointer-events-none shadow-[inset_0_0_80px_rgba(0,0,0,0.9)]" />
+      {/* Cozy Minecraft Room Background matching Reference Image */}
+      <div
+        className="absolute inset-0 z-0 bg-cover bg-center"
+        style={{
+          backgroundImage: "url('/images/minecraft_cozy_cabin.jpg')",
+        }}
+      >
+        {/* Subtle ambient warm lighting vignette */}
+        <div className="absolute inset-0 bg-black/40 backdrop-blur-[0.5px]" />
+      </div>
 
       <div className="relative z-10 w-full max-w-4xl flex flex-col items-center">
         {/* Section Header */}
         <div className="flex items-center gap-2 mb-1">
-          <PixelIcon name="crafting-table" size={24} />
+          <PixelIcon name="chest" size={24} />
           <h2
-            className="font-minecraft text-xl sm:text-2xl text-[#ffff55] tracking-wider uppercase"
+            className="font-minecraft text-xl sm:text-2xl text-[#ffff55] tracking-wider uppercase font-bold"
             style={{ textShadow: "2px 2px 0 #000" }}
           >
-            Inventory & Crafting
+            Inventory &amp; Crafting
           </h2>
         </div>
-        <p className="font-sans text-xs sm:text-sm text-[#cbd5e1] mb-5 text-center max-w-md">
-          Move your mouse to watch Steve look around, or click & drag to spin him 360°!
+        <p className="font-sans text-xs sm:text-sm text-[#cbd5e1] mb-4 text-center max-w-md">
+          Move your mouse to watch Steve look around, or click &amp; drag to spin him 360°!
         </p>
 
-        {/* Category Filter Tabs */}
-        <div className="flex flex-wrap justify-center gap-1.5 mb-5">
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              type="button"
-              onClick={() => {
-                playClick();
-                setSelectedCategory(cat.id);
-              }}
-              className={`
-                px-2.5 py-1 font-minecraft text-[10px] sm:text-xs transition-all cursor-pointer
-                ${
-                  selectedCategory === cat.id
-                    ? "bg-[#22c55e] text-white border-2 border-[#86efac] shadow-[0_0_8px_rgba(34,197,94,0.5)]"
-                    : "bg-[#22232a] hover:bg-[#333540] text-[#cccccc] border-2 border-[#444654]"
-                }
-              `}
-            >
-              {cat.label}
-            </button>
-          ))}
+        {/* Category Filter Tabs (2-row layout matching reference image) */}
+        <div className="flex flex-col items-center gap-1.5 mb-4">
+          {/* Row 1: 5 categories */}
+          <div className="flex flex-wrap justify-center gap-1.5">
+            {categories.slice(0, 5).map((cat) => {
+              const isActive = selectedCategory === cat.id;
+              return (
+                <button
+                  key={cat.id}
+                  type="button"
+                  onClick={() => {
+                    playClick();
+                    setSelectedCategory(cat.id);
+                  }}
+                  className={`
+                    px-3 py-1 font-minecraft text-[10px] sm:text-xs transition-all cursor-pointer border-2
+                    ${
+                      isActive
+                        ? "bg-[#123824] border-[#22c55e] text-[#4ade80] font-bold shadow-[0_0_8px_rgba(34,197,94,0.4)]"
+                        : "bg-[#22232a] hover:bg-[#333540] text-[#cccccc] border-[#444654]"
+                    }
+                  `}
+                >
+                  {cat.label}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Row 2: Tools & Git centered */}
+          <div className="flex justify-center">
+            {categories.slice(5).map((cat) => {
+              const isActive = selectedCategory === cat.id;
+              return (
+                <button
+                  key={cat.id}
+                  type="button"
+                  onClick={() => {
+                    playClick();
+                    setSelectedCategory(cat.id);
+                  }}
+                  className={`
+                    px-3 py-1 font-minecraft text-[10px] sm:text-xs transition-all cursor-pointer border-2
+                    ${
+                      isActive
+                        ? "bg-[#123824] border-[#22c55e] text-[#4ade80] font-bold shadow-[0_0_8px_rgba(34,197,94,0.4)]"
+                        : "bg-[#22232a] hover:bg-[#333540] text-[#cccccc] border-[#444654]"
+                    }
+                  `}
+                >
+                  {cat.label}
+                </button>
+              );
+            })}
+          </div>
         </div>
 
         {/* Exact Authentic Minecraft Survival Inventory GUI Container */}
-              {/* Exact Authentic Minecraft Survival Inventory GUI Container */}
         <div
           className="w-full max-w-[430px] sm:max-w-[460px] bg-[#c6c6c6] p-2.5 sm:p-3.5 border-4 border-t-[#ffffff] border-l-[#ffffff] border-b-[#555555] border-r-[#555555] shadow-[0_20px_50px_rgba(0,0,0,0.9)] relative text-[#373737]"
           style={{ imageRendering: "pixelated" }}
@@ -254,8 +290,12 @@ export const Inventory: React.FC = () => {
 
             {/* Center Area: Steve 3D Preview Chamber + Off-Hand Shield Slot */}
             <div className="flex items-end gap-1.5">
-              <div className="w-[102px] sm:w-[112px] h-[142px] sm:h-[154px] bg-black border-2 border-t-[#373737] border-l-[#373737] border-b-[#ffffff] border-r-[#ffffff] flex items-center justify-center relative overflow-hidden">
-                <InteractiveSteve className="w-full h-full" />
+              <div className="w-[102px] sm:w-[112px] h-[142px] sm:h-[154px] bg-black border-2 border-t-[#373737] border-l-[#373737] border-b-[#ffffff] border-r-[#ffffff] flex flex-col items-center justify-between relative overflow-hidden">
+                <InteractiveSteve className="w-full h-[126px] sm:h-[136px]" />
+                {/* Drag to spin bar at bottom matching reference image */}
+                <div className="w-full bg-[#111111]/90 py-0.5 text-center font-minecraft text-[7px] sm:text-[8px] text-[#aaaaaa] border-t border-[#333333] tracking-wider select-none pointer-events-none">
+                  ◀ DRAG TO SPIN ▶
+                </div>
               </div>
 
               {/* Offhand Slot (Beside Steve at bottom-right) */}
@@ -412,7 +452,7 @@ export const Inventory: React.FC = () => {
           <div className="mt-1">
             <div className="grid grid-cols-9 gap-[2px] sm:gap-1 p-1 bg-[#8b8b8b] border-t-2 border-l-2 border-[#373737] border-b-2 border-r-2 border-[#ffffff]">
               {hotbarSkills.map((skill, index) => {
-                const isSelected = activeSkill?.name === skill.name;
+                const isSelected = activeSkill?.name === skill.name || activeHotbarSlot === index;
 
                 return (
                   <div
@@ -421,7 +461,7 @@ export const Inventory: React.FC = () => {
                   >
                     <button
                       type="button"
-                      onClick={() => handleSelectSkill(skill)}
+                      onClick={() => handleSelectSkill(skill, index)}
                       aria-label={`${skill.name}: Hotbar slot ${index + 1}`}
                       className={`
                         w-full h-full relative flex items-center justify-center outline-none transition-colors
@@ -442,16 +482,18 @@ export const Inventory: React.FC = () => {
                     </button>
 
                     {/* Tooltip on Hover */}
-                    <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all pointer-events-none z-50">
-                      <MinecraftTooltipContent
-                        title={skill.name}
-                        enchantment={skill.enchantment}
-                        description={skill.description}
-                        category={skill.category}
-                        level={skill.level}
-                        rarity={skill.level >= 90 ? "legendary" : "rare"}
-                      />
-                    </div>
+                    {skill && (
+                      <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all pointer-events-none z-50">
+                        <MinecraftTooltipContent
+                          title={skill.name}
+                          enchantment={skill.enchantment}
+                          description={skill.description}
+                          category={skill.category}
+                          level={skill.level}
+                          rarity={skill.level >= 90 ? "legendary" : "rare"}
+                        />
+                      </div>
+                    )}
                   </div>
                 );
               })}
@@ -488,6 +530,38 @@ export const Inventory: React.FC = () => {
               </div>
             </div>
           )}
+        </div>
+
+        {/* 1-9 Numbered Hotbar Selector at bottom matching reference image */}
+        <div className="mt-3 flex items-center justify-center">
+          <div className="flex items-center bg-[#1e1e1e]/90 p-1 border-2 border-[#555555] shadow-lg">
+            {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((slotNum, idx) => {
+              const isSlotActive = activeHotbarSlot === idx;
+              return (
+                <div
+                  key={`slot-num-${slotNum}`}
+                  onClick={() => {
+                    playPop();
+                    setActiveHotbarSlot(idx);
+                    if (hotbarSkills[idx]) {
+                      setActiveSkill(hotbarSkills[idx]);
+                    }
+                  }}
+                  className={`
+                    w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center font-minecraft text-xs cursor-pointer transition-all
+                    border border-[#333333]
+                    ${
+                      isSlotActive
+                        ? "bg-[#333333] text-white border-2 border-[#ffffff] shadow-[inset_0_0_4px_#ffff55]"
+                        : "bg-[#181818] text-[#888888] hover:text-white hover:bg-[#252525]"
+                    }
+                  `}
+                >
+                  {slotNum}
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>

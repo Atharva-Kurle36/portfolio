@@ -9,7 +9,7 @@ interface InteractiveSteveProps {
 
 export const InteractiveSteve: React.FC<InteractiveSteveProps> = ({ className = "" }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [baseYaw, setBaseYaw] = useState<number>(-22); // Default classic Minecraft GUI angle
+  const [baseYaw, setBaseYaw] = useState<number>(-20); // Default classic Minecraft GUI angle
   const [headYaw, setHeadYaw] = useState<number>(0);
   const [headPitch, setHeadPitch] = useState<number>(0);
   const [isDragging, setIsDragging] = useState<boolean>(false);
@@ -67,7 +67,7 @@ export const InteractiveSteve: React.FC<InteractiveSteveProps> = ({ className = 
     setTimeout(() => setIsPunching(false), 300);
   };
 
-  // Dimensions (Scale factor 3.2 for crisp voxel rendering inside ~100x140 chamber)
+  // Dimensions:
   // Head: 26x26x26
   // Torso: 26x38x13
   // Arm: 13x38x13
@@ -85,7 +85,7 @@ export const InteractiveSteve: React.FC<InteractiveSteveProps> = ({ className = 
       {/* Subtle bottom shadow on floor */}
       <div className="absolute bottom-2 w-14 h-4 bg-black/80 rounded-full blur-[2px] pointer-events-none" />
 
-      {/* 3D Steve Root */}
+      {/* 3D Steve Root - Classic Unarmored Steve */}
       <div
         className="relative transition-transform duration-75"
         style={{
@@ -107,7 +107,7 @@ export const InteractiveSteve: React.FC<InteractiveSteveProps> = ({ className = 
             transform: `rotateY(${headYaw}deg) rotateX(${headPitch}deg)`,
           }}
         >
-          {/* Head Front - Diamond Helmet */}
+          {/* Head Front - Classic Steve Face */}
           <div
             className="absolute inset-0"
             style={{
@@ -116,39 +116,42 @@ export const InteractiveSteve: React.FC<InteractiveSteveProps> = ({ className = 
             }}
           >
             <svg viewBox="0 0 8 8" className="w-full h-full" style={{ shapeRendering: "crispEdges" }}>
-              {/* Diamond Helmet Forehead */}
-              <rect x="0" y="0" width="8" height="3" fill="#55ffff" />
-              <rect x="1" y="0" width="6" height="1" fill="#ffffff" />
-              <rect x="0" y="3" width="8" height="1" fill="#2dd4bf" />
-              {/* Helmet Cheek Guards & Face Opening */}
-              <rect x="0" y="4" width="1" height="3" fill="#55ffff" />
-              <rect x="7" y="4" width="1" height="3" fill="#55ffff" />
+              {/* Hair */}
+              <rect x="0" y="0" width="8" height="2" fill="#492d19" />
+              <rect x="0" y="2" width="2" height="1" fill="#492d19" />
+              <rect x="6" y="2" width="2" height="1" fill="#492d19" />
+              <rect x="0" y="3" width="1" height="1" fill="#492d19" />
+              <rect x="7" y="3" width="1" height="1" fill="#492d19" />
+              {/* Forehead Skin */}
+              <rect x="2" y="2" width="4" height="1" fill="#db9d7b" />
+              <rect x="1" y="3" width="6" height="1" fill="#db9d7b" />
               {/* Eyes */}
               <rect x="1" y="4" width="1" height="1" fill="#ffffff" />
               <rect x="2" y="4" width="1" height="1" fill="#2b4289" />
               <rect x="3" y="4" width="2" height="1" fill="#ab6b49" />
               <rect x="5" y="4" width="1" height="1" fill="#2b4289" />
               <rect x="6" y="4" width="1" height="1" fill="#ffffff" />
-              {/* Nose & Mouth area */}
+              {/* Nose & Cheeks */}
               <rect x="1" y="5" width="2" height="1" fill="#c68863" />
               <rect x="3" y="5" width="2" height="1" fill="#935133" />
               <rect x="5" y="5" width="2" height="1" fill="#c68863" />
+              {/* Goatee / Mouth Smile */}
               <rect x="1" y="6" width="6" height="1" fill="#59321f" />
-              {/* Chin Guard */}
-              <rect x="0" y="7" width="8" height="1" fill="#00aaaa" />
+              {/* Chin */}
+              <rect x="0" y="7" width="8" height="1" fill="#b87754" />
             </svg>
           </div>
 
-          {/* Head Back */}
+          {/* Head Back - Classic Brown Hair */}
           <div
-            className="absolute inset-0 bg-[#00aaaa]"
+            className="absolute inset-0 bg-[#492d19]"
             style={{
               transform: "rotateY(180deg) translateZ(13px)",
               filter: "brightness(0.7)",
             }}
           />
 
-          {/* Head Right */}
+          {/* Head Right Side */}
           <div
             className="absolute inset-0"
             style={{
@@ -157,12 +160,13 @@ export const InteractiveSteve: React.FC<InteractiveSteveProps> = ({ className = 
             }}
           >
             <svg viewBox="0 0 8 8" className="w-full h-full" style={{ shapeRendering: "crispEdges" }}>
-              <rect x="0" y="0" width="8" height="8" fill="#55ffff" />
-              <rect x="0" y="5" width="4" height="2" fill="#00aaaa" />
+              <rect x="0" y="0" width="8" height="4" fill="#492d19" />
+              <rect x="0" y="4" width="8" height="4" fill="#db9d7b" />
+              <rect x="0" y="4" width="3" height="2" fill="#492d19" />
             </svg>
           </div>
 
-          {/* Head Left */}
+          {/* Head Left Side */}
           <div
             className="absolute inset-0"
             style={{
@@ -171,23 +175,24 @@ export const InteractiveSteve: React.FC<InteractiveSteveProps> = ({ className = 
             }}
           >
             <svg viewBox="0 0 8 8" className="w-full h-full" style={{ shapeRendering: "crispEdges" }}>
-              <rect x="0" y="0" width="8" height="8" fill="#55ffff" />
-              <rect x="4" y="5" width="4" height="2" fill="#00aaaa" />
+              <rect x="0" y="0" width="8" height="4" fill="#492d19" />
+              <rect x="0" y="4" width="8" height="4" fill="#db9d7b" />
+              <rect x="5" y="4" width="3" height="2" fill="#492d19" />
             </svg>
           </div>
 
           {/* Head Top */}
           <div
-            className="absolute inset-0 bg-[#55ffff]"
+            className="absolute inset-0 bg-[#492d19]"
             style={{
               transform: "rotateX(90deg) translateZ(13px)",
               filter: "brightness(1.1)",
             }}
           />
 
-          {/* Head Bottom */}
+          {/* Head Bottom (Neck underside) */}
           <div
-            className="absolute inset-0 bg-[#008080]"
+            className="absolute inset-0 bg-[#ab6b49]"
             style={{
               transform: "rotateX(-90deg) translateZ(13px)",
               filter: "brightness(0.5)",
@@ -195,7 +200,7 @@ export const InteractiveSteve: React.FC<InteractiveSteveProps> = ({ className = 
           />
         </div>
 
-        {/* Torso & Body */}
+        {/* Torso & Body - Classic Steve Cyan Shirt */}
         <div
           className="absolute"
           style={{
@@ -215,27 +220,29 @@ export const InteractiveSteve: React.FC<InteractiveSteveProps> = ({ className = 
             }}
           >
             <svg viewBox="0 0 8 12" className="w-full h-full" style={{ shapeRendering: "crispEdges" }}>
-              {/* Diamond Chestplate */}
-              <rect x="0" y="0" width="8" height="12" fill="#55ffff" />
-              <rect x="2" y="0" width="4" height="2" fill="#2dd4bf" />
-              <rect x="1" y="2" width="6" height="7" fill="#55ffff" />
-              <rect x="2" y="3" width="4" height="5" fill="#2dd4bf" />
-              <rect x="0" y="9" width="8" height="3" fill="#00aaaa" />
+              {/* Neck skin opening */}
+              <rect x="0" y="0" width="8" height="12" fill="#00a8a8" />
+              <rect x="2" y="0" width="4" height="2" fill="#db9d7b" />
+              <rect x="3" y="2" width="2" height="1" fill="#c68863" />
+              {/* Shirt shading */}
+              <rect x="0" y="1" width="1" height="11" fill="#008b8b" />
+              <rect x="7" y="1" width="1" height="11" fill="#008b8b" />
+              <rect x="1" y="11" width="6" height="1" fill="#008080" />
             </svg>
           </div>
 
           {/* Torso Back */}
           <div
-            className="absolute inset-0 bg-[#00aaaa]"
+            className="absolute inset-0 bg-[#008b8b]"
             style={{
               transform: "rotateY(180deg) translateZ(6.5px)",
-              filter: "brightness(0.7)",
+              filter: "brightness(0.75)",
             }}
           />
 
           {/* Torso Right */}
           <div
-            className="absolute top-0 bottom-0 bg-[#00aaaa]"
+            className="absolute top-0 bottom-0 bg-[#008b8b]"
             style={{
               width: "13px",
               left: "6.5px",
@@ -251,83 +258,34 @@ export const InteractiveSteve: React.FC<InteractiveSteveProps> = ({ className = 
               width: "13px",
               left: "6.5px",
               transform: "rotateY(-90deg) translateZ(13px)",
-              filter: "brightness(0.75)",
+              filter: "brightness(0.7)",
             }}
           />
 
-          {/* Torso Top */}
+          {/* Torso Top (Shoulders) */}
           <div
-            className="absolute left-0 right-0 bg-[#55ffff]"
+            className="absolute left-0 right-0 bg-[#00a8a8]"
             style={{
               height: "13px",
-              top: "6.5px",
+              top: "12.5px",
               transform: "rotateX(90deg) translateZ(19px)",
               filter: "brightness(1.1)",
             }}
           />
-        </div>
 
-        {/* Right Arm (Player's Right, Screen Left) with Fishing Rod */}
-        <div
-          className="absolute"
-          style={{
-            top: "-26px",
-            left: "-26px",
-            width: "13px",
-            height: "38px",
-            transformStyle: "preserve-3d",
-            transformOrigin: "top center",
-            transform: isPunching
-              ? "rotateX(-45deg) rotateY(15deg)"
-              : `rotateY(${headYaw * 0.25}deg) rotateZ(2deg)`,
-            transition: "transform 0.15s ease-out",
-          }}
-        >
-          {/* Arm Front */}
+          {/* Torso Bottom */}
           <div
-            className="absolute inset-0"
-            style={{ transform: "translateZ(6.5px)" }}
-          >
-            <svg viewBox="0 0 4 12" className="w-full h-full" style={{ shapeRendering: "crispEdges" }}>
-              {/* Diamond Pauldron / Sleeve */}
-              <rect x="0" y="0" width="4" height="4" fill="#55ffff" />
-              <rect x="0" y="3" width="4" height="1" fill="#2dd4bf" />
-              {/* Skin arm */}
-              <rect x="0" y="4" width="4" height="8" fill="#c68863" />
-              <rect x="1" y="8" width="2" height="3" fill="#b97753" />
-            </svg>
-
-            {/* Held Item Rod like screenshot */}
-            <div
-              className="absolute -top-4 -left-1 w-1.5 h-14 bg-[#6b7280] border border-[#374151] origin-bottom pointer-events-none"
-              style={{ transform: "rotate(-10deg)" }}
-            />
-          </div>
-          {/* Arm Outer (Right) */}
-          <div
-            className="absolute top-0 bottom-0 bg-[#00aaaa]"
+            className="absolute left-0 right-0 bg-[#008080]"
             style={{
-              width: "13px",
-              transform: "rotateY(-90deg) translateZ(6.5px)",
-              filter: "brightness(0.8)",
-            }}
-          >
-            <svg viewBox="0 0 4 12" className="w-full h-full" style={{ shapeRendering: "crispEdges" }}>
-              <rect x="0" y="0" width="4" height="4" fill="#55ffff" />
-              <rect x="0" y="4" width="4" height="8" fill="#b97753" />
-            </svg>
-          </div>
-          {/* Arm Back */}
-          <div
-            className="absolute inset-0 bg-[#008080]"
-            style={{
-              transform: "rotateY(180deg) translateZ(6.5px)",
-              filter: "brightness(0.7)",
+              height: "13px",
+              top: "12.5px",
+              transform: "rotateX(-90deg) translateZ(19px)",
+              filter: "brightness(0.6)",
             }}
           />
         </div>
 
-        {/* Left Arm (Player's Left, Screen Right) */}
+        {/* Right Arm (Classic Steve Arm with Cyan Sleeve + Skin) */}
         <div
           className="absolute"
           style={{
@@ -337,89 +295,156 @@ export const InteractiveSteve: React.FC<InteractiveSteveProps> = ({ className = 
             height: "38px",
             transformStyle: "preserve-3d",
             transformOrigin: "top center",
-            transform: `rotateY(${headYaw * 0.25}deg) rotateZ(-2deg)`,
+            transform: isPunching
+              ? "rotateX(-50deg) rotateZ(10deg)"
+              : `rotateX(${-headPitch * 0.4}deg) rotateZ(3deg)`,
+            transition: "transform 0.15s ease-out",
           }}
         >
           {/* Arm Front */}
           <div
             className="absolute inset-0"
-            style={{ transform: "translateZ(6.5px)" }}
-          >
-            <svg viewBox="0 0 4 12" className="w-full h-full" style={{ shapeRendering: "crispEdges" }}>
-              {/* Diamond Pauldron / Sleeve */}
-              <rect x="0" y="0" width="4" height="4" fill="#55ffff" />
-              <rect x="0" y="3" width="4" height="1" fill="#2dd4bf" />
-              {/* Skin arm */}
-              <rect x="0" y="4" width="4" height="8" fill="#c68863" />
-              <rect x="1" y="8" width="2" height="3" fill="#b97753" />
-            </svg>
-          </div>
-          {/* Arm Outer (Left) */}
-          <div
-            className="absolute top-0 bottom-0"
             style={{
-              width: "13px",
-              transform: "rotateY(90deg) translateZ(6.5px)",
-              filter: "brightness(0.85)",
+              transform: "translateZ(6.5px)",
             }}
           >
             <svg viewBox="0 0 4 12" className="w-full h-full" style={{ shapeRendering: "crispEdges" }}>
-              <rect x="0" y="0" width="4" height="4" fill="#00aaaa" />
-              <rect x="0" y="4" width="4" height="8" fill="#c68863" />
+              {/* Cyan sleeve */}
+              <rect x="0" y="0" width="4" height="4" fill="#00a8a8" />
+              {/* Skin arm */}
+              <rect x="0" y="4" width="4" height="8" fill="#db9d7b" />
+              <rect x="0" y="11" width="4" height="1" fill="#b87754" />
             </svg>
           </div>
+
           {/* Arm Back */}
           <div
-            className="absolute inset-0 bg-[#008080]"
+            className="absolute inset-0 bg-[#b87754]"
             style={{
               transform: "rotateY(180deg) translateZ(6.5px)",
+              filter: "brightness(0.75)",
+            }}
+          >
+            <div className="w-full h-[12px] bg-[#008b8b]" />
+          </div>
+
+          {/* Arm Outer (Right) */}
+          <div
+            className="absolute top-0 bottom-0 bg-[#db9d7b]"
+            style={{
+              width: "13px",
+              left: "0px",
+              transform: "rotateY(90deg) translateZ(6.5px)",
+              filter: "brightness(0.9)",
+            }}
+          >
+            <div className="w-full h-[12px] bg-[#00a8a8]" />
+          </div>
+
+          {/* Arm Inner (Left) */}
+          <div
+            className="absolute top-0 bottom-0 bg-[#b87754]"
+            style={{
+              width: "13px",
+              left: "0px",
+              transform: "rotateY(-90deg) translateZ(6.5px)",
               filter: "brightness(0.7)",
+            }}
+          >
+            <div className="w-full h-[12px] bg-[#008b8b]" />
+          </div>
+
+          {/* Arm Bottom (Hand) */}
+          <div
+            className="absolute left-0 right-0 bg-[#ab6b49]"
+            style={{
+              height: "13px",
+              top: "12.5px",
+              transform: "rotateX(-90deg) translateZ(19px)",
+              filter: "brightness(0.6)",
             }}
           />
         </div>
 
-        {/* Right Leg (Screen Left) - Diamond Leggings & Boots */}
+        {/* Left Arm (Classic Steve Arm with Cyan Sleeve + Skin) */}
         <div
           className="absolute"
           style={{
-            top: "12px",
-            left: "-13px",
+            top: "-26px",
+            left: "-26px",
             width: "13px",
             height: "38px",
             transformStyle: "preserve-3d",
+            transformOrigin: "top center",
+            transform: `rotateX(${headPitch * 0.3}deg) rotateZ(-3deg)`,
           }}
         >
-          {/* Front */}
-          <div className="absolute inset-0" style={{ transform: "translateZ(6.5px)" }}>
+          {/* Arm Front */}
+          <div
+            className="absolute inset-0"
+            style={{
+              transform: "translateZ(6.5px)",
+            }}
+          >
             <svg viewBox="0 0 4 12" className="w-full h-full" style={{ shapeRendering: "crispEdges" }}>
-              {/* Diamond Legging */}
-              <rect x="0" y="0" width="4" height="9" fill="#55ffff" />
-              <rect x="1" y="2" width="2" height="5" fill="#2dd4bf" />
-              {/* Diamond Boot */}
-              <rect x="0" y="9" width="4" height="3" fill="#00aaaa" />
-              <rect x="0" y="11" width="4" height="1" fill="#008080" />
+              {/* Cyan sleeve */}
+              <rect x="0" y="0" width="4" height="4" fill="#00a8a8" />
+              {/* Skin arm */}
+              <rect x="0" y="4" width="4" height="8" fill="#db9d7b" />
+              <rect x="0" y="11" width="4" height="1" fill="#b87754" />
             </svg>
           </div>
-          {/* Side */}
+
+          {/* Arm Back */}
           <div
-            className="absolute top-0 bottom-0 bg-[#00aaaa]"
-            style={{
-              width: "13px",
-              transform: "rotateY(-90deg) translateZ(6.5px)",
-              filter: "brightness(0.8)",
-            }}
-          />
-          {/* Back */}
-          <div
-            className="absolute inset-0 bg-[#008080]"
+            className="absolute inset-0 bg-[#b87754]"
             style={{
               transform: "rotateY(180deg) translateZ(6.5px)",
+              filter: "brightness(0.75)",
+            }}
+          >
+            <div className="w-full h-[12px] bg-[#008b8b]" />
+          </div>
+
+          {/* Arm Outer (Left) */}
+          <div
+            className="absolute top-0 bottom-0 bg-[#db9d7b]"
+            style={{
+              width: "13px",
+              left: "0px",
+              transform: "rotateY(-90deg) translateZ(6.5px)",
+              filter: "brightness(0.9)",
+            }}
+          >
+            <div className="w-full h-[12px] bg-[#00a8a8]" />
+          </div>
+
+          {/* Arm Inner (Right) */}
+          <div
+            className="absolute top-0 bottom-0 bg-[#b87754]"
+            style={{
+              width: "13px",
+              left: "0px",
+              transform: "rotateY(90deg) translateZ(6.5px)",
               filter: "brightness(0.7)",
+            }}
+          >
+            <div className="w-full h-[12px] bg-[#008b8b]" />
+          </div>
+
+          {/* Arm Bottom (Hand) */}
+          <div
+            className="absolute left-0 right-0 bg-[#ab6b49]"
+            style={{
+              height: "13px",
+              top: "12.5px",
+              transform: "rotateX(-90deg) translateZ(19px)",
+              filter: "brightness(0.6)",
             }}
           />
         </div>
 
-        {/* Left Leg (Screen Right) - Diamond Leggings & Boots */}
+        {/* Right Leg (Classic Steve Blue Jeans + Gray Shoes) */}
         <div
           className="absolute"
           style={{
@@ -428,42 +453,152 @@ export const InteractiveSteve: React.FC<InteractiveSteveProps> = ({ className = 
             width: "13px",
             height: "38px",
             transformStyle: "preserve-3d",
+            transformOrigin: "top center",
+            transform: "rotateX(-4deg)",
           }}
         >
-          {/* Front */}
-          <div className="absolute inset-0" style={{ transform: "translateZ(6.5px)" }}>
+          {/* Leg Front */}
+          <div
+            className="absolute inset-0"
+            style={{
+              transform: "translateZ(6.5px)",
+            }}
+          >
             <svg viewBox="0 0 4 12" className="w-full h-full" style={{ shapeRendering: "crispEdges" }}>
-              {/* Diamond Legging */}
-              <rect x="0" y="0" width="4" height="9" fill="#55ffff" />
-              <rect x="1" y="2" width="2" height="5" fill="#2dd4bf" />
-              {/* Diamond Boot */}
-              <rect x="0" y="9" width="4" height="3" fill="#00aaaa" />
-              <rect x="0" y="11" width="4" height="1" fill="#008080" />
+              {/* Blue Jeans */}
+              <rect x="0" y="0" width="4" height="9" fill="#2b3d8b" />
+              <rect x="0" y="0" width="1" height="9" fill="#1e2c66" />
+              {/* Gray Shoes */}
+              <rect x="0" y="9" width="4" height="3" fill="#4c4c4c" />
+              <rect x="0" y="11" width="4" height="1" fill="#333333" />
             </svg>
           </div>
-          {/* Side */}
+
+          {/* Leg Back */}
           <div
-            className="absolute top-0 bottom-0 bg-[#00aaaa]"
+            className="absolute inset-0 bg-[#1e2c66]"
+            style={{
+              transform: "rotateY(180deg) translateZ(6.5px)",
+              filter: "brightness(0.75)",
+            }}
+          >
+            <div className="w-full h-[10px] bg-[#333333] mt-[28px]" />
+          </div>
+
+          {/* Leg Right */}
+          <div
+            className="absolute top-0 bottom-0 bg-[#2b3d8b]"
             style={{
               width: "13px",
+              left: "0px",
               transform: "rotateY(90deg) translateZ(6.5px)",
               filter: "brightness(0.85)",
             }}
-          />
-          {/* Back */}
+          >
+            <div className="w-full h-[10px] bg-[#4c4c4c] mt-[28px]" />
+          </div>
+
+          {/* Leg Left */}
           <div
-            className="absolute inset-0 bg-[#008080]"
+            className="absolute top-0 bottom-0 bg-[#1e2c66]"
             style={{
-              transform: "rotateY(180deg) translateZ(6.5px)",
-              filter: "brightness(0.7)",
+              width: "13px",
+              left: "0px",
+              transform: "rotateY(-90deg) translateZ(6.5px)",
+              filter: "brightness(0.65)",
+            }}
+          >
+            <div className="w-full h-[10px] bg-[#333333] mt-[28px]" />
+          </div>
+
+          {/* Shoe Bottom */}
+          <div
+            className="absolute left-0 right-0 bg-[#222222]"
+            style={{
+              height: "13px",
+              top: "12.5px",
+              transform: "rotateX(-90deg) translateZ(19px)",
             }}
           />
         </div>
-      </div>
 
-      {/* Interactive Helper Hint */}
-      <div className="absolute bottom-1 font-minecraft text-[7px] text-[#777777] tracking-tighter pointer-events-none select-none text-center">
-        ◀ DRAG TO SPIN ▶
+        {/* Left Leg (Classic Steve Blue Jeans + Gray Shoes) */}
+        <div
+          className="absolute"
+          style={{
+            top: "12px",
+            left: "-13px",
+            width: "13px",
+            height: "38px",
+            transformStyle: "preserve-3d",
+            transformOrigin: "top center",
+            transform: "rotateX(4deg)",
+          }}
+        >
+          {/* Leg Front */}
+          <div
+            className="absolute inset-0"
+            style={{
+              transform: "translateZ(6.5px)",
+            }}
+          >
+            <svg viewBox="0 0 4 12" className="w-full h-full" style={{ shapeRendering: "crispEdges" }}>
+              {/* Blue Jeans */}
+              <rect x="0" y="0" width="4" height="9" fill="#2b3d8b" />
+              <rect x="3" y="0" width="1" height="9" fill="#1e2c66" />
+              {/* Gray Shoes */}
+              <rect x="0" y="9" width="4" height="3" fill="#4c4c4c" />
+              <rect x="0" y="11" width="4" height="1" fill="#333333" />
+            </svg>
+          </div>
+
+          {/* Leg Back */}
+          <div
+            className="absolute inset-0 bg-[#1e2c66]"
+            style={{
+              transform: "rotateY(180deg) translateZ(6.5px)",
+              filter: "brightness(0.75)",
+            }}
+          >
+            <div className="w-full h-[10px] bg-[#333333] mt-[28px]" />
+          </div>
+
+          {/* Leg Left */}
+          <div
+            className="absolute top-0 bottom-0 bg-[#2b3d8b]"
+            style={{
+              width: "13px",
+              left: "0px",
+              transform: "rotateY(-90deg) translateZ(6.5px)",
+              filter: "brightness(0.85)",
+            }}
+          >
+            <div className="w-full h-[10px] bg-[#4c4c4c] mt-[28px]" />
+          </div>
+
+          {/* Leg Right */}
+          <div
+            className="absolute top-0 bottom-0 bg-[#1e2c66]"
+            style={{
+              width: "13px",
+              left: "0px",
+              transform: "rotateY(90deg) translateZ(6.5px)",
+              filter: "brightness(0.65)",
+            }}
+          >
+            <div className="w-full h-[10px] bg-[#333333] mt-[28px]" />
+          </div>
+
+          {/* Shoe Bottom */}
+          <div
+            className="absolute left-0 right-0 bg-[#222222]"
+            style={{
+              height: "13px",
+              top: "12.5px",
+              transform: "rotateX(-90deg) translateZ(19px)",
+            }}
+          />
+        </div>
       </div>
     </div>
   );

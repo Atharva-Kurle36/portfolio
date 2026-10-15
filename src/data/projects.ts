@@ -2,6 +2,27 @@ import { Project } from "@/types";
 
 export const projectsData: Project[] = [
   {
+    id: "swiftsum",
+    name: "SwiftSum: Smart Content & AI Summarizer",
+    description: "High-speed AI web platform engineered recently to rapidly summarize articles, long-form documents, and web content into concise takeaways.",
+    longDescription: "Engineered recently upon being promoted to Degree Engineering (VSIT & University of Greater Manchester Dual Degree), leveraging the comprehensive web and app building mastery acquired during Diploma at Vidyalankar Polytechnic. SwiftSum provides lightning-fast text processing, intelligent key takeaway extraction, multi-level summary density controls, and clean responsive UI.",
+    techStack: ["Next.js", "React", "TypeScript", "FastAPI", "Python", "Tailwind CSS"],
+    mode: "hardcore",
+    icon: "beacon",
+    version: "v1.0.0",
+    lastPlayed: "Recently Built (Degree)",
+    category: "ai",
+    links: {
+      github: "https://github.com/Atharva-Kurle36",
+      demo: "#",
+    },
+    highlights: [
+      "Engineered recently following promotion to Degree Engineering, built upon comprehensive web & app development learned during Diploma",
+      "Instantaneous article & text summarization engine delivering concise executive bullet points and key takeaways",
+      "Fast API response times, modern responsive interface, and one-click export for high productivity workflows",
+    ],
+  },
+  {
     id: "learnify-ai",
     name: "Learnify: AI Study Tracker",
     description: "AI-driven study tracker and productivity suite featuring personalized revision schedules, smart study analytics, and task planning.",

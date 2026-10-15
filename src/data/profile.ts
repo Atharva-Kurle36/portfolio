@@ -3,7 +3,7 @@ import { Profile, ServerContact } from "@/types";
 export const profileData: Profile = {
   name: "Atharva Kurle",
   title: "Dual-Degree Software Engineering Student",
-  tagline: "B.Eng. SE & B.Sc. CS Student • Hackathon Innovator • Web & Blockchain Crafter",
+  tagline: "Promoted to Degree Engineering (VSIT & Greater Manchester) • Mastered Web & App Building in Diploma (88.47%) • Creator of SwiftSum",
   avatar: "/avatar.png",
   coordinates: "X: 19.0760, Y: 14.000, Z: 72.8777",
   location: "Mumbai, Maharashtra, India (Bandra / Wadala)",
@@ -18,20 +18,20 @@ export const profileData: Profile = {
     {
       title: "Player Profile: Atharva Kurle",
       paragraphs: [
-        "Welcome! I am Atharva Kurle, a first-year student pursuing a dual degree in B.Eng. Software Engineering and B.Sc. (Computer Science) – Software Engineering (NCC Education) under the University of Greater Manchester and Vidyalankar Institute of International Education in Mumbai.",
-        "I am someone who is adaptable depending on the task, takes responsibilities seriously, and maintains consistent dedication to learning and growing.",
-        "I completed my Diploma in Information Technology from Vidyalankar Polytechnic, Wadala, Mumbai, graduating with an outstanding 88.47%, after completing my SSC at St. Stanislaus High School, Bandra (West) (Batch 2022-2023).",
+        "Welcome! I am Atharva Kurle, a software engineering student who learned everything of web and app building during my Diploma, and has now been promoted to Degree Engineering — pursuing a prestigious Dual Degree in Software Engineering (B.Eng. SE & B.Sc. CS) under the University of Greater Manchester and VSIT (Vidyalankar School of Information Technology) in Mumbai.",
+        "I completed my Jr College (Diploma in Information Technology) from Vidyalankar Polytechnic, Wadala, graduating with an outstanding 88.47% academic distinction, after completing my Schooling at St. Stanislaus High School, Bandra (West) (Batch 2022-2023).",
+        "During my diploma journey, I mastered the complete lifecycle of web and application creation, participated actively in multiple collegiate hackathons and tech events, and built end-to-end production systems.",
       ],
-      quote: "Showcase skills and classroom learnings through live projects to gain practical industry knowledge.",
+      quote: "Learned everything of web and app building in diploma, now promoted to degree engineering to craft scalable software.",
     },
     {
-      title: "Work Experience & Hackathons",
+      title: "SwiftSum & Work Experience",
       paragraphs: [
+        "Recently built and launched SwiftSum — a high-speed web application for rapid content and article summarization, demonstrating high-performance frontend and backend engineering.",
         "Frontend & Inventory Intern at Royal Trader (June - August 2025): Developed responsive, user-friendly frontend web pages, improved UX, and managed corporate inventory records utilizing advanced Excel tools, formulas, sorting, filtering, and conditional formatting.",
         "Active collegiate hackathon innovator: Built AI-powered study trackers (Learnify), phishing detection systems (Safenet), blockchain supply chain tracking systems (SherlockLogs), and student-teacher management portals.",
-        "Passionate about applying modern engineering practices to build reliable, high-impact web, app, and decentralized applications.",
       ],
-      quote: "Adaptable, consistent, and always ready to turn challenges into working code.",
+      quote: "Creator of SwiftSum • Adaptable, consistent, and always engineering with high velocity.",
     },
     {
       title: "Tech Arsenal & Languages",
@@ -45,8 +45,11 @@ export const profileData: Profile = {
     },
   ],
   splashTexts: [
+    "Creator of SwiftSum!",
+    "Mastered Web & App Building in Diploma!",
+    "Promoted to Degree Engineering!",
     "Vidyalankar & Greater Manchester Dual Degree!",
-    "Diploma in IT: 88.47%!",
+    "Diploma in IT: 88.47% Distinction!",
     "St. Stanislaus High School Alum!",
     "Royal Trader Frontend Intern!",
     "Learnify & Safenet Hackathon Builder!",
@@ -54,8 +57,6 @@ export const profileData: Profile = {
     "Fluent in English, Hindi & Marathi!",
     "MongoDB & Full-Stack Crafter!",
     "Prompt Engineering & IoT Explorer!",
-    "First-Year SE grind in Mumbai!",
-    "100% bug-free (tested on localhost)!",
   ],
 };
 
